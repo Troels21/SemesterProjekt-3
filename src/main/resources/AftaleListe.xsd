@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="aftale" type="aftale"/>
+    <xs:element name="aftaleListe" type="aftaleListe"/>
+    <xs:complexType name="aftaleListe">
+        <xs:sequence/>
+    </xs:complexType>
+    <xs:complexType name="aftale">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="CPR" type="xs:string"/>
+            <xs:element minOccurs="0" name="ID" type="xs:string"/>
+            <xs:element minOccurs="0" name="klinikID" type="xs:string"/>
+            <xs:element minOccurs="0" name="notat" type="xs:string"/>
+            <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+            <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
