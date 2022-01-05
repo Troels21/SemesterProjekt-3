@@ -4,7 +4,7 @@ if (!tok){window.location.href="LoginSide.html"}
 function hentAftaleFecth(from, to) {
     let fra = from;
     let til = to;
-    fetch("/data/aftaler/aftalerSQL?" + new URLSearchParams({
+    fetch("data/aftaler/aftalerSQL?" + new URLSearchParams({
         from: fra,
         to: til,
 
@@ -137,7 +137,7 @@ function setdates(year, month, day) {
 
 //Pop-up journal
 function formfetch() {
-    fetch("/data/aftaler/aftalerSQL?" + new URLSearchParams({
+    fetch("data/aftaler/aftalerSQL?" + new URLSearchParams({
         cpr: document.getElementById("cpr").value,
         //name: document.getElementById("navn").value,
         timestart: document.getElementById("timeStart").value,

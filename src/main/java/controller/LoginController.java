@@ -27,7 +27,7 @@ public class LoginController {
         try {
             // sql kald der kontrollere om brugeren eksitere
             String brugerListe = SQL.getSqlOBJ().hentBrugerListe(loginData.getUsername());
-
+            System.out.println(loginData.getUsername()+" "+loginData.getPassword());
             // kontrol af login og generer token
             if (loginVal(brugerListe, loginData.getPassword())) {
                 User user = new User(loginData);
@@ -49,6 +49,10 @@ public class LoginController {
             }
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(generateHash("1234",71));
     }
 
     public static String generateHash(String pass, int salt) {
