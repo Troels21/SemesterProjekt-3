@@ -1,79 +1,155 @@
+function LineChart(con) {
+    // user defined properties
+    this.canvas = document.getElementById(con.canvasId);
+    this.minX = con.minX;
+    this.minY = con.minY;
+    this.maxX = con.maxX;
+    this.maxY = con.maxY;
+    this.unitsPerTickX = con.unitsPerTickX;
+    this.unitsPerTickY = con.unitsPerTickY;
 
-if (!localStorage.getItem("token")){window.location.href="LoginSide.html"}
+    // constants
+    this.padding = 10;
+    this.tickSize = 10;
+    this.axisColor = "#555";
+    this.pointRadius = 5;
+    this.font = "12pt Calibri";
 
-/*viser dropdown menu*/
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+    this.fontHeight = 12;
+
+    // relationships
+    this.context = this.canvas.getContext("2d");
+    this.rangeX = this.maxX - this.minY;
+    this.rangeY = this.maxY - this.minY;
+    this.numXTicks = Math.round(this.rangeX / this.unitsPerTickX);
+    this.numYTicks = Math.round(this.rangeY / this.unitsPerTickY);
+    this.x = this.getLongestValueWidth() + this.padding * 2;
+    this.y = this.padding * 2;
+    this.width = this.canvas.width - this.x - this.padding * 2;
+    this.height = this.canvas.height - this.y - this.padding - this.fontHeight;
+    this.scaleX = this.width / this.rangeX;
+    this.scaleY = this.height / this.rangeY;
+
+    // draw x y axis and tick marks
+    this.drawXAxis();
+    this.drawYAxis();
 }
 
-/* Lukker dropdown menuen */
-window.onclick = function (event) {
-    if (!event.target.matches('.dropdownbtn')) {
-        let dropdowns = document.getElementsByClassName("dropdown-content");
-        let i;
-        for (i = 0; i < dropdowns.length; i++) {
-            let openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-        }
+LineChart.prototype.getLongestValueWidth = function () {
+    this.context.font = this.font;
+    var longestValueWidth = 0;
+    for (var n = 0; n <= this.numYTicks; n++) {
+        var value = this.maxY - (n * this.unitsPerTickY);
+        longestValueWidth = Math.max(longestValueWidth, this.context.measureText(value).width);
     }
-}
+    return longestValueWidth;
+};
+LineChart.prototype.drawXAxis = function () {
+    var context = this.context;
+    context.save();
+    context.beginPath();
+    context.moveTo(this.x, this.y + this.height);
+    context.lineTo(this.x + this.width, this.y + this.height);
+    context.strokeStyle = this.axisColor;
+    context.lineWidth = 2;
+    context.stroke();
 
-/* Fetch kald som skal resultere i at xml bliver hentet*/
-function fetchfunction(grp) {
-    document.getElementById("tekstfelt").innerHTML ="";
-    let cpr = document.getElementById("cpr").value;
-    fetch("data/import?" + new URLSearchParams({
-        grp : grp,
-        CPR : cpr
-    }),{
-        headers: {
-            "Authorization": localStorage.getItem("token")
-        }
-    }).then(resp => resp.json()).then(data => displaydata(data));
-}
-
-function displaydata(data) {
-    if(1 < data.aftaleListe.aftale.length) {
-        createList(data);
-    }else{
-        createSingle(data);
+    // draw tick marks
+    for (var n = 0; n < this.numXTicks; n++) {
+        context.beginPath();
+        context.moveTo((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height);
+        context.lineTo((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height - this.tickSize);
+        context.stroke();
     }
-}
+// draw labels
+    context.font = this.font;
+    context.fillStyle = "black";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
 
-function createSingle(data){
-    let container = "";
-    let cpr = "CPR: " + data.aftaleListe.aftale.CPR;
-    let klinikid = "KlinikID: " + data.aftaleListe.aftale.klinikID;
-    let id = "AftaleID: " + data.aftaleListe.aftale.ID;
-    let time = data.aftaleListe.aftale.timeStart + " ----- " + data.aftaleListe.aftale.timeEnd;
-    let note = data.aftaleListe.aftale.notat;
+    for (var n = 0; n < this.numXTicks; n++) {
+        var label = Math.round((n + 1) * this.maxX / this.numXTicks);
+        context.save();
+        context.translate((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height + this.padding);
+        context.fillText(label, 0, 0);
+        context.restore();
+    }
+    context.restore();
+};
+LineChart.prototype.drawYAxis = function () {
+    var context = this.context;
+    context.save();
+    context.save();
+    context.beginPath();
+    context.moveTo(this.x, this.y);
+    context.lineTo(this.x, this.y + this.height);
+    context.strokeStyle = this.axisColor;
+    context.lineWidth = 2;
+    context.stroke();
+    context.restore();
 
-    let tider = '<span class="tider">' + time + '</span><br>'
-    let navne = '<span class="name">' + cpr + " --- " + klinikid + " --- " + id + '</span><br>';
-    let notat = '<span class="note">' + note + '</span><br>';
+    // draw tick marks
+    for (var n = 0; n < this.numYTicks; n++) {
+        context.beginPath();
+        context.moveTo(this.x, n * this.height / this.numYTicks + this.y);
+        context.lineTo(this.x + this.tickSize, n * this.height / this.numYTicks + this.y);
+        context.stroke();
+    }
 
-    container += navne + tider + notat;
-    console.log(container);
-    document.getElementById("tekstfelt").innerHTML = container;
-}
+// draw values
+    context.font = this.font;
+    context.fillStyle = "black";
+    context.textAlign = "right";
+    context.textBaseline = "middle";
 
-function createList(data){
-    let container = "";
-    for (let i = 0; i < data.aftaleListe.aftale.length; i++) {
-        let cpr = "CPR: " + data.aftaleListe.aftale[i].CPR;
-        let klinikid = "KlinikID: " + data.aftaleListe.aftale[i].klinikID;
-        let id = "AftaleID: " + data.aftaleListe.aftale[i].ID;
-        let time = data.aftaleListe.aftale[i].timeStart + " ----- " + data.aftaleListe.aftale[i].timeEnd;
-        let note = data.aftaleListe.aftale[i].notat;
+    for (var n = 0; n < this.numYTicks; n++) {
+        var value = Math.round(this.maxY - n * this.maxY / this.numYTicks);
+        context.save();
+        context.translate(this.x - this.padding, n * this.height / this.numYTicks + this.y);
+        context.fillText(value, 0, 0);
+        context.restore();
+    }
+    context.restore();
+};
 
-        let tider = '<span class="tider">' + time + '</span><br>'
-        let navne = '<span class="name">' + cpr + " --- " + klinikid + " --- " + id + '</span><br>';
-        let notat = '<span class="note">' + note + '</span><hr>';
 
-        container += navne + tider + notat;
-        console.log(container);
-        }
-    document.getElementById("tekstfelt").innerHTML = container;
+LineChart.prototype.drawLine = function (data, color, width) {
+    var context = this.context;
+    context.save();
+    this.transformContext();
+    context.lineWidth = width;
+    context.strokeStyle = color;
+    context.fillStyle = color;
+    context.beginPath();
+    context.moveTo(data[0].x * this.scaleX, data[0].y * this.scaleY);
+
+    for (var n = 0; n < data.length; n++) {
+        var point = data[n];
+
+        // draw segment
+        context.lineTo(point.x * this.scaleX, point.y * this.scaleY);
+        context.stroke();
+        context.closePath();
+        context.beginPath();
+        context.arc(point.x * this.scaleX, point.y * this.scaleY, this.pointRadius, 0, 2 * Math.PI, false);
+        context.fill();
+        context.closePath();
+
+        // position for next segment
+        context.beginPath();
+        context.moveTo(point.x * this.scaleX, point.y * this.scaleY);
+    }
+    context.restore();
+};
+
+window.onload = function () {
+    var myLineChart = new LineChart({
+        canvasId: "myCanvas",
+        minX: 0,
+        minY: 0,
+        maxX: 140,
+        maxY: 100,
+        unitsPerTickX: 10,
+        unitsPerTickY: 10
+    });
 }
