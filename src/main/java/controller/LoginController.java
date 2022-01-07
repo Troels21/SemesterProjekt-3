@@ -66,13 +66,5 @@ public class LoginController {
         }
         return pass;
     }
-
-    public static int getSalt() {
-        byte[] salt = new byte[20];
-        SecureRandom sr = new SecureRandom();
-        sr.nextBytes(salt);
-        int saltint = salt[4];
-        return saltint;
-    }
 }
 
