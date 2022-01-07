@@ -16,7 +16,7 @@ public class ekgController {
     }
 
     public static void main(String[] args) {
-        ArrayList<Integer> listen = ekgController.splitStringArray("[1234567890,1,2,3,4,5,6,7,8,9,23,32,41,252,3,562,34,421,3,0]");
+        ArrayList<Integer> listen = ekgController.splitStringArray(",1,2,3,4,5,6,7,8,9,23,32,41,252,3,562,34,421,3,0]");
         System.out.println(CPR);
         System.out.println(listen.toString());
     }
