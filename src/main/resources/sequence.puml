@@ -1,0 +1,17 @@
+@startuml
+
+Python -> EkgEndpoint : HTTP Post
+EkgEndpoint -> EkgController : validate()
+EkgController ->> ekgBehandlingAlgo : ekgAlgo()
+
+EkgEndpoint <<-- EkgController : Return
+Python <<-- EkgEndpoint : Return
+
+ekgBehandlingAlgo -> ekgBehandlingAlgo : findSick()
+
+ekgBehandlingAlgo -> SQL : sqlInsertEKG
+entity      SQLDatabase      as sqldb
+SQL -> sqldb  : insertIntoEkg()
+SQL <<-- sqldb : Return
+ekgBehandlingAlgo <-- SQL : Return
+@enduml
