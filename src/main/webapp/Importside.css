@@ -1,14 +1,14 @@
 /* baggrund */
 body {
-    font-family: "Times New Roman", serif;
-    background-color: rgb(220, 243, 255);
+    font-family: "Georgia", serif;
+    background-color: #90D7FF;
 }
 
 
 .button1 {
-    border: 1px solid rgb(11, 71, 144);
-    background-color: rgb(11, 71, 144);
-    color: white;
+    border: 1px solid white;
+    background-color: ghostwhite;
+    color: black;
     height: 30px;
     position: absolute;
     right: 10px;
@@ -16,11 +16,11 @@ body {
 }
 
 .button1:hover {
-    background-color: rgb(2, 32, 69);
+    background-color: lightgray;
 }
 
 .button1:active {
-    background-color: rgb(2, 32, 69);
+    background-color: lightgray;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
@@ -42,12 +42,22 @@ body {
 
 /* Dropdown Button */
 .VaelgerKnap {
-    background-color: rgb(11, 71, 144);
-    color: white;
+    background-color: ghostwhite;
+    color: black;
     font-size: 16px;
     border: none;
     height: 30px;
     border-radius: 5px;
+}
+
+.VaelgerKnap:hover {
+    background-color: lightgray;
+}
+
+.VaelgerKnap:active {
+    background-color: lightgray;
+    box-shadow: 0 5px #666;
+    transform: translateY(0.5px);
 }
 
 .ekgVaelger{
@@ -62,5 +72,6 @@ body {
 #cpr {
     min-width: 150px;
     background-color: ghostwhite;
-    border:1px solid #000000;
+    border:1px lightgray;
+    border-radius: 5px;
 }

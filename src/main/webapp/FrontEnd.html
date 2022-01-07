@@ -18,8 +18,8 @@
 <!--DETTE ER FOR HOTBAR-->
 
 <div class="hotbar">
-  <button class="button1" onclick="window.location.replace('Importside_SP.html')"> EKG Visualisering</button>
-  <button class="button1" onclick="logud()">Log ud</button>
+  <button class="button1" id="EKG" onclick="window.location.replace('Importside_SP.html')"> EKG</button>
+  <button class="button1" id="logud" onclick="logud()">Log-ud</button>
 </div>
 
 <!--DETTE ER FOR BRUGERNAVN-->
@@ -29,28 +29,28 @@
 <!--DETTE ER FOR MELLEMSTED-->
 
 <div class="mellemsted">
-  <button onclick="refresh()" class="button1"> <span class="material-icons-outlined">
+  <button onclick="refresh()" id="reset" class="button2"> <span class="material-icons-outlined">
 refresh
 </span></button>
   <!--Pop-up journal-->
-  <button onclick="openForm()" class="button1">Tilføj ny aftale</button>
+  <button onclick="openForm()" id="tilfoej" class="button2">Tilføj</button>
 </div>
 
 
 <!--DETTE ER FOR AUTOGENNERET TIDER -->
 <div class="autotidersted" id="autosted">
-  <div class="autotiderbar" id="autotiderbar">Tider på dagen:</div>
+  <div class="autotiderbar" id="autotiderbar">Tider på dagen</div>
   <div class="autotider" id="autotider"></div>
 </div>
 
 <!-- journal -->
 <div class="form-popup" id="myForm">
   <div class="form-container" >
-    <h1>Aftale</h1>
+    <h1 id="Aftale1">Aftale</h1>
     <span>
             <label for="cpr">CPR</label></span>
     <span>
-            <input type="text" id="cpr" name="cpr" placeholder="CPR" required class="box"></span>
+            <input class="TilfoejBoksFelter" type="text" id="cpr" name="cpr" placeholder="CPR" required class="box"></span>
     <!--<span>
         <label for="navn">Fornavn og efternavn</label></span>
 
@@ -58,19 +58,19 @@ refresh
         <input type="text" id="navn" name="name" placeholder="Fornavn og efternavn" required class="box"></span>-->
     <label for="datetime">V&#230lg tid</label>
 
-    <input type="datetime-local" id="datetime" onfocusout="noWeekend()" required>
-    <label for="timefree">t&#230tteste tid</label>
-    <input type="text" id="timefree" disabled>
+    <input class="TilfoejBoksFelter" type="datetime-local" id="datetime" onfocusout="noWeekend()" required>
+    <label for="timefree">T&#230tteste tid</label>
+    <input type="text" class="TilfoejBoksFelter" id="timefree" disabled>
 
     <input type="text" id="timeStart" name="timestart" hidden>
     <input type="text" id="timeEnd" name="timeend" hidden>
 
     <span>
             <label for="textarea">Notat </label></span>
-    <textarea id="textarea" name="note" rows="4" cols="50"></textarea><br>
+    <textarea class="TilfoejBoksFelter" id="textarea" name="note" rows="4" cols="50"></textarea><br>
 
-    <input type="button" value="Cancel" class="button" onclick="closeForm()">
-    <input type="button" value="Indsend" class="button" onclick="submitForm()">
+    <input type="button" value="Cancel" class="button1" onclick="closeForm()">
+    <input type="button" value="Indsend" class="button1" onclick="submitForm()">
   </div>
 </div>
 

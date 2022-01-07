@@ -4,9 +4,9 @@
 }
 
 body {
-
-    font-family: 'Times New Roman', sans-serif;
     background-size: cover;
+    font-family: "Georgia", serif;
+    background-color: #90D7FF;
 }
 
 
@@ -34,7 +34,7 @@ body {
 .hotbar a {
     background-color: rgb(11, 71, 144) /*rgb(162,221,240)*/;
     display: inline-block;
-    color: white;
+    color: ghostwhite;
     font-weight: bold;
     text-align: center;
     border: 5px;
@@ -76,7 +76,7 @@ body {
 
 .mellemsted div a {
     display: inline-block;
-    color: white;
+    color: ghostwhite;
 }
 
 /*AUTO TIDER*/
@@ -85,12 +85,12 @@ body {
     display: block;
     width: 30rem;
     height: 40rem;
-    left: 58%;
-    right: 10%;
+    right: 290px;
     margin: 0;
     justify-content: center;
     align-items: center;
-    background-color: gray;
+    background-color: ghostwhite;
+    border-radius: 10px;
 }
 
 .autotiderbar {
@@ -102,13 +102,15 @@ body {
     text-align: center;
     font-weight: 400;
     font-size: 2em;
-    color: white;
-    background: rgb(11, 71, 144);
+    color: black;
+    background-color: #EDEDED;
+    border-radius: 10px;
+
 }
 
 .autotider {
     font-size: 25px;
-    background-color: gray;
+    background-color: lightsteelblue;
 }
 
 .autoname {
@@ -122,12 +124,13 @@ body {
 /*DETTE ER FOR SKEMA*/
 .schema {
     position: absolute;
-    left: 10%;
+    left: 10px;
     width: 45%;
     height: 40rem;
     justify-content: center;
     align-items: center;
-    background-color: gray;
+    background-color: ghostwhite;
+    border-radius: 10px;
 }
 
 .actualdate {
@@ -137,8 +140,9 @@ body {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    color: white;
-    background: rgb(11, 71, 144);
+    color: black;
+    border-radius: 10px;
+    background-color: #EDEDED;
 }
 
 .actualdate div {
@@ -152,12 +156,12 @@ body {
 }
 
 .next:hover {
-    background-color: dodgerblue;
+    background-color: lightgray;
     cursor: pointer;
 }
 
 .prev:hover {
-    background-color: dodgerblue;
+    background-color: lightgray;
     cursor: pointer;
 }
 
@@ -195,18 +199,18 @@ body {
 }
 
 .today {
-    background-color: rgb(11, 71, 144);
-    color: white;
+    color: black;
+    background: ghostwhite;
     font-weight: bolder;
 }
 
 .dates div:hover:not(.today) {
-    background-color: dodgerblue;
+    background-color: lightgray;
     cursor: pointer;
 }
 
 .active {
-    background-color: dodgerblue;
+    background-color: lightgray;
 }
 
 .today:hover {
@@ -237,9 +241,9 @@ body {
 
 .tider div {
     font-weight: bold;
-    color: white;
     padding: 1em;
-    background-color: rgb(11, 71, 144);
+    color: black;
+    background: ghostwhite;
     border-radius: 3px;
 }
 
@@ -254,33 +258,73 @@ body {
     position: fixed;
     bottom: 1px;
     right: 20px;
-    border: 3px solid black;
+    border: 1px solid black;
 }
 
 .form-container {
-    max-width: 500px;
+    width: 260px;
     padding: 10px;
-    background-color: white;
+    background-color: ghostwhite;
 }
 
 .button1 {
-    border: 1px solid rgb(11, 71, 144);
-    background-color: rgb(11, 71, 144);
-    color: white;
+    font-weight: bold;
+    font-size: 12px;
     height: 30px;
-    font-family: "Times New Roman", sans-serif;
+    width: auto;
+    border-radius: 5px;
+    background-color: ghostwhite;
+    border-color: white;
+}
+
+#EKG{
+    position: absolute;
+    right: 15px;
+}
+#logud{
+    position: absolute;
+    right: -50px;
 }
 
 .button1:hover {
-    background-color: dodgerblue;
+    background-color: lightgray;
 }
 
 .button1:active {
-    background-color: dodgerblue;
+    background-color: lightgray;
     box-shadow: 0 5px #666;
-    transform: translateY(4px);
+    transform: translateY(0.5px);
 }
 
+.button2{
+    font-weight: bold;
+    font-size: 12px;
+    height: 50px;
+    width: auto;
+    border-radius: 0px;
+    background-color: #EDEDED;
+    border-color: #EDEDED;
+    padding-bottom: 15px;
+}
+
+#reset{
+    position: absolute;
+    left: 260px;
+}
+#tilfoej{
+    position: absolute;
+    left: 210px;
+}
+
+.button2:hover {
+    background-color: lightgray;
+}
+
+.button2:active {
+    background-color: lightgray;
+    box-shadow: 0 5px #666;
+    transform: translateY(0.5px);
+}
 
 h1 {
     margin: 1px;
@@ -326,40 +370,17 @@ select {
 }
 
 textarea {
-    background-color: #eee;
+    background-color: whitesmoke;
+    border-radius: 5px;
     padding: 12px;
     margin: 8px 0;
     width: 280px;
-    border: 1px solid;
-}
-
-.button {
-    border: 1px solid rgb(11, 71, 144);
-    background-color: rgb(11, 71, 144);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    height: 30px;
-    width: 49%
-}
-
-.button:hover {
-    background-color: dodgerblue;
-}
-
-.button:active {
-    background-color: dodgerblue;;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
 }
 
 /* Fra website */
-
 .open-button {
-    background-color: rgb(11,71,144) ;
-    color: white;
+    color: black;
+    background: ghostwhite;
     padding: 16px 20px;
     border: none;
     cursor: pointer;
@@ -373,19 +394,21 @@ textarea {
 /* The popup form - hidden by default */
 .form-popup {
     display: none;
-    position: fixed;
-    bottom: 0;
+    position: absolute;
+    bottom: 179px;
     right: 15px;
     z-index: 9;
-    background-color: white;
-    border: 1px solid black;
+    background-color: ghostwhite;
+    border: 1px solid lightgray;
+    border-radius: 15px;
 }
 
 /* Add styles to the form container */
 .form-container {
     max-width: 300px;
     padding: 10px;
-    background-color: white;
+    background-color: ghostwhite;
+    border-radius: 15px;
 
 }
 
@@ -411,6 +434,25 @@ textarea {
     opacity: 1;
 }
 
+#MyClockDisplay{
+    left: 20px;
+    color: black;
+    width: 190px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 18px;
+}
 
+#Aftale1{
+    width: 50%;
+    padding: 20px;
+    margin: auto auto 20px;
+}
+
+.TilfoejBoksFelter{
+    border-radius: 10px;
+    width: 230px;
+    border: 0px;
+}
 
 
