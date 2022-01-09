@@ -88,12 +88,12 @@ public class AftaleSQL {
 
             while (rs.next()) {
                 Aftale aftale = new Aftale();
-                aftale.setCPR(String.valueOf(rs.getInt(8)));
+                aftale.setCPR(rs.getString(8));
                 aftale.setTimeStart(rs.getString(2));
                 aftale.setTimeEnd(rs.getString(3));
                 aftale.setNotat(rs.getString(4));
-                aftale.setID(rs.getString(5));
-                aftale.setKlinikID(rs.getString(6));
+                aftale.setID(rs.getString(6));
+                aftale.setKlinikID(rs.getString(5));
 
                 aftaleListe.addAftaler(aftale);
             }
@@ -124,8 +124,8 @@ public class AftaleSQL {
                 aftale.setTimeStart(rs.getString(2));
                 aftale.setTimeEnd(rs.getString(3));
                 aftale.setNotat(rs.getString(4));
-                aftale.setKlinikID(rs.getString(5));
                 aftale.setID(rs.getString(6));
+                aftale.setKlinikID(rs.getString(5));
 
                 aftaleListe.addAftaler(aftale);
             }
