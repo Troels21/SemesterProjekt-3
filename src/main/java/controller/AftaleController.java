@@ -1,6 +1,7 @@
 package controller;
 
 
+import dataAccesLayer.AftaleSQL;
 import dataAccesLayer.SQL;
 import exceptions.OurException;
 import model.Aftale;
@@ -32,10 +33,10 @@ public class AftaleController {
 
     public AftaleListe cprSearch(String cpr) throws SQLException, OurException {
         if (cpr == null) {
-            return SQL.getSqlOBJ().getAftalerListe();
+            return AftaleSQL.getAftaleSQLObj().getAftalerListe();
         }
         if (cprCheck(cpr)) {
-            return SQL.getSqlOBJ().cprSearch(cpr);
+            return AftaleSQL.getAftaleSQLObj().cprSearch(cpr);
         }
        return new AftaleListe();
     }
@@ -51,7 +52,7 @@ public class AftaleController {
                 aftale.setNotat(note);
                 aftale.setKlinikID("4");
 
-                SQL.getSqlOBJ().insertAftaleSQL(aftale);
+                AftaleSQL.getAftaleSQLObj().insertAftaleSQL(aftale);
                 return "added patient" + aftale;
             } else {
                 //forkert note

@@ -2,6 +2,7 @@ package api;
 
 import com.google.gson.Gson;
 import controller.AftaleController;
+import dataAccesLayer.AftaleSQL;
 import dataAccesLayer.SQL;
 import exceptions.OurException;
 import model.AftaleListe;
@@ -31,6 +32,6 @@ public class AftaleService {
     @Path("aftalerSQL")
     @GET
     public String selectFromTime(@QueryParam("from") String from, @QueryParam("to") String to) throws SQLException {
-        return new Gson().toJson(SQL.getSqlOBJ().getAftaleListeDateTime(from, to));
+        return new Gson().toJson(AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to));
     }
 }

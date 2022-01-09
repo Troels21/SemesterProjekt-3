@@ -1,5 +1,6 @@
 package controller;
 
+import dataAccesLayer.LoginSQL;
 import dataAccesLayer.SQL;
 import model.LoginData;
 import model.User;
@@ -9,7 +10,6 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.sql.SQLException;
 
 public class LoginController {
@@ -26,7 +26,7 @@ public class LoginController {
     public String doLogin(LoginData loginData) {
         try {
             // sql kald der kontrollere om brugeren eksitere
-            String brugerListe = SQL.getSqlOBJ().hentBrugerListe(loginData.getUsername());
+            String brugerListe = LoginSQL.getLoginSqlObj().returnLoginUserDB(loginData.getUsername());
             System.out.println(loginData.getUsername()+" "+loginData.getPassword());
             // kontrol af login og generer token
             if (loginVal(brugerListe, loginData.getPassword())) {

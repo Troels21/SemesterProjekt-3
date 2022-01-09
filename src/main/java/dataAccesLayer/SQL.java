@@ -19,9 +19,9 @@ public class SQL {
 
     private final String url = "jdbc:mysql://130.225.170.248:3306/listeDB";
     private final String DatabaseUser = "testbruger1";
-    private final String DatabasePassword = System.getenv("SqlKode"); //tomcat system startups
+    private final String DatabasePassword = System.getenv("SqlKode"); //tomcat system startups //"LodretMaleriPuppe"
 
-    private Connection myConn;
+    public Connection myConn;
     public Statement myStatement;
 
     public void makeConnectionSQL() throws SQLException {
@@ -44,128 +44,5 @@ public class SQL {
         }
     }
 
-    public AftaleListe getAftaleListeDateTime(String fra, String til) throws SQLException {
-        SQL.getSqlOBJ().makeConnectionSQL();
-        AftaleListe aftaleListe = new AftaleListe();
-        try {
-            PreparedStatement pp = myConn.prepareStatement("SELECT * FROM listeDB.aftaler WHERE TimeStart BETWEEN ? and ?;");
-            pp.setString(1, fra);
-            pp.setString(2, til);
-
-            ResultSet rs = pp.executeQuery();
-
-            while (rs.next()) {
-                Aftale aftale = new Aftale();
-                aftale.setCPR(String.valueOf(rs.getInt(1)));
-                aftale.setTimeStart(rs.getString(2));
-                aftale.setTimeEnd(rs.getString(3));
-                aftale.setNotat(rs.getString(4));
-                aftale.setID(rs.getString(5));
-                aftale.setKlinikID(rs.getString(6));
-
-
-                aftaleListe.addAftaler(aftale);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        SQL.getSqlOBJ().removeConnectionSQL();
-
-        return aftaleListe;
-    }
-
-    public void insertAftaleSQL(Aftale aftale) throws OurException {
-
-        try {
-            makeConnectionSQL();
-            PreparedStatement pp = myConn.prepareStatement("INSERT INTO listeDB.aftaler (CPR, TimeStart, TimeEnd, Notat, KlinikId) values(?,?,?,?,?);");
-
-            pp.setString(1, aftale.getCPR());  //CPR
-            pp.setString(2, aftale.getTimeStart());  //starttime
-            pp.setString(3, aftale.getTimeEnd());  //endtime
-            pp.setString(4, aftale.getNotat());  //note
-            pp.setString(5, aftale.getKlinikID()); //klinikif
-
-            pp.execute();
-
-            removeConnectionSQL();
-        } catch (SQLException throwables) {
-            OurException ex = new OurException();
-            ex.setMessage("Tiden er allerede optaget.");
-            throw ex;
-        }
-    }
-
-    public AftaleListe getAftalerListe() throws SQLException {
-        SQL.getSqlOBJ().makeConnectionSQL();
-        AftaleListe aftaleListe = new AftaleListe();
-        String query = "SELECT * FROM aftaler";
-        try {
-            ResultSet rs = SQL.getSqlOBJ().myStatement.executeQuery(query);
-
-            while (rs.next()) {
-                Aftale aftale = new Aftale();
-                aftale.setCPR(String.valueOf(rs.getInt(1)));
-                aftale.setTimeStart(rs.getString(2));
-                aftale.setTimeEnd(rs.getString(3));
-                aftale.setNotat(rs.getString(4));
-                aftale.setID(rs.getString(5));
-                aftale.setKlinikID(rs.getString(6));
-
-                aftaleListe.addAftaler(aftale);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        SQL.getSqlOBJ().removeConnectionSQL();
-
-        return aftaleListe;
-    }
-
-    public String hentBrugerListe(String bruger) throws SQLException {
-        SQL.getSqlOBJ().makeConnectionSQL();
-        PreparedStatement preparedStatement = myConn.prepareStatement("SELECT * FROM listeDB.LoginOplysninger WHERE USERNAME = ?;");
-        preparedStatement.setString(1, bruger);
-        String svar = "";
-        try {
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                svar = svar + rs.getString(1);
-                svar = svar + "|" + rs.getString(2);
-                svar = svar + "|" + rs.getString(3);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        SQL.getSqlOBJ().removeConnectionSQL();
-        return svar;
-    }
-
-    public AftaleListe cprSearch(String cpr) throws SQLException {
-        SQL.getSqlOBJ().makeConnectionSQL();
-        PreparedStatement pp = myConn.prepareStatement("SELECT * FROM listeDB.aftaler WHERE CPR = ?;");
-        AftaleListe aftaleListe = new AftaleListe();
-        try {
-            pp.setString(1, cpr);
-            ResultSet rs = pp.executeQuery();
-
-            while (rs.next()) {
-                Aftale aftale = new Aftale();
-                aftale.setCPR(String.valueOf(rs.getInt(1)));
-                aftale.setTimeStart(rs.getString(2));
-                aftale.setTimeEnd(rs.getString(3));
-                aftale.setNotat(rs.getString(4));
-                aftale.setID(rs.getString(5));
-                aftale.setKlinikID(rs.getString(6));
-
-                aftaleListe.addAftaler(aftale);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        SQL.getSqlOBJ().removeConnectionSQL();
-        return aftaleListe;
-    }
 }
 
