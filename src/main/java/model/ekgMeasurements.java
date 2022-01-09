@@ -3,6 +3,7 @@ package model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class ekgMeasurements {
                 '}';
     }
 
-    private List<Double> measurments;
+    private List<Double> measurments = new ArrayList<>();
 
     public List<Double> getMeasurments() {
         return measurments;

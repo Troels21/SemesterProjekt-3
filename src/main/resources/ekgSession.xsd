@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="session">
+    <xs:element name="sessions">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="sessionID" type="xs:unsignedByte" />
-                <xs:element name="cpr" type="xs:string" />
-                <xs:element name="timeStart" type="xs:string" />
-                <xs:element name="markers">
+                <xs:element name="session">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element maxOccurs="unbounded" name="marker" type="xs:unsignedByte" />
+                            <xs:element name="sessionID" type="xs:unsignedByte" />
+                            <xs:element name="cpr" type="xs:string" />
+                            <xs:element name="timeStart" type="xs:string" />
+                            <xs:element name="markers">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" name="marker" type="xs:unsignedByte" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="comment" type="xs:string" />
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="comment" type="xs:string" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>

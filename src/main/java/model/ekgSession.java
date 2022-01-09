@@ -12,7 +12,7 @@ public class ekgSession {
     private int sessionID;
     private String cpr;
     private String timeStart;
-    private List<Integer> markers;
+    private List<String> markers;
     private String comment;
 
     @Override
@@ -50,11 +50,11 @@ public class ekgSession {
         this.timeStart = timeStart;
     }
 
-    public List<Integer> getMarkers() {
+    public List<String> getMarkers() {
         return markers;
     }
 
-    public void addMarkers(int marker) {
+    public void addMarkers(String marker) {
         this.markers.add(marker);
     }
 
@@ -66,5 +66,7 @@ public class ekgSession {
         this.comment = comment;
     }
 
-
+    public void setMarkers(List<String> markers) {
+        this.markers = markers;
+    }
 }

@@ -11,7 +11,7 @@ public class ekgController {
     private String comments;
     private String timeStart;
 
-    static ArrayList<Integer> liste;
+    static ArrayList<Double> liste;
     static String CPR;
 
     private ekgController() {
@@ -24,7 +24,7 @@ public class ekgController {
     }
 
     public static void main(String[] args) {
-        ArrayList<Integer> listen = ekgController.splitStringArray(",1,2,3,4,5,6,7,8,9,23,32,41,252,3,562,34,421,3,0");
+        ArrayList<Double> listen = ekgController.splitStringArray(",1,2,3,4,5,6,7,8,9,23,32,41,252,3,562,34,421,3,0");
         System.out.println(CPR);
         System.out.println(listen.toString());
     }
@@ -47,11 +47,11 @@ public class ekgController {
     public void getXmlMeasurements(){
     }
 
-    static public ArrayList<Integer> splitStringArray(String string) {
+    static public ArrayList<Double> splitStringArray(String string) {
         CPR= string.substring(1);
         String[] Stringarray = string.split(",");
         for (int i = 1; i < Stringarray.length; i++) {
-            liste.add(Integer.parseInt(Stringarray[i]));
+            liste.add(Double.parseDouble(Stringarray[i]));
 
         }
         return liste;

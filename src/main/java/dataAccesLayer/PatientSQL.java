@@ -36,7 +36,7 @@ public class PatientSQL {
         return null;
     }
 
-    public String whatIsPatientCPR(int patientID) throws SQLException {
+    public String getPatientCPR(int patientID) throws SQLException {
         SQL.getSqlOBJ().makeConnectionSQL();
         PreparedStatement pp = SQL.getSqlOBJ().myConn.prepareStatement("SELECT cpr\n" +
                 "FROM patient\n" +
