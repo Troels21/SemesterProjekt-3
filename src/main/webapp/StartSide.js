@@ -33,7 +33,7 @@ function udfyldskema(data) {
         let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
         let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
         let Notat = '<span class="autonote">' + note + '</span>';
-        let Checkbox = '<span class="R_Button">' + '<input type="checkbox">' + '</span><hr>';
+        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox'+i+'">' + '</span><hr>';
 
         container += Tider + CPR + Notat + Checkbox;
     }
