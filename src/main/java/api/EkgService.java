@@ -1,5 +1,6 @@
 package api;
 
+import com.google.gson.Gson;
 import dataAccesLayer.EkgSql;
 import model.ekgMeasurements;
 import model.ekgSessionList;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 
 
 @Path("ekgSessions")
-@Produces({MediaType.APPLICATION_XML})
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class EkgService {
 
     @GET
@@ -42,4 +43,16 @@ public class EkgService {
         return "jeg fik : " + string;
     }
 
+    @Path("ekgSesJson")
+    @GET
+    public String test(@QueryParam("cpr") String cpr){
+        if (cpr != null)  {
+            try {
+                return new Gson().toJson(EkgSql.getEkgSql().getEkgSessions(cpr));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
+    }
 }
