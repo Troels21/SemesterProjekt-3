@@ -63,11 +63,16 @@ body {
 
 .ekgVaelger{
     background-color: ghostwhite;
-    width: 150px;
+    width: 175px;
     height: 600px;
     position: absolute;
     border:1px solid #000000;
     border-radius: 5px;
+}
+
+#autoComment,#autoID,#SessionID{
+    padding: 5px;
+    padding-top: 8px;
 }
 
 #cpr {
