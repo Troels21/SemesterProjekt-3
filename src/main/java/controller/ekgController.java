@@ -1,12 +1,17 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ekgController {
 
-    private List<Double> measurements;
-    private String cpr;
+    static private List<Double> measurements;
+    static private String cpr;
     private String markers;
     private String comments;
     private String timeStart;
@@ -23,13 +28,19 @@ public class ekgController {
         return EKG_CONTROLLER;
     }
 
-    public static void main(String[] args) {
-        ArrayList<Double> listen = ekgController.splitStringArray(",1,2,3,4,5,6,7,8,9,23,32,41,252,3,562,34,421,3,0");
-        System.out.println(CPR);
-        System.out.println(listen.toString());
-    }
 
-    public void validate(){
+     public void validate(String data, String cprString){
+        JsonElement json = new JsonParser().parse(data);
+
+        JsonArray jsonArray = json.getAsJsonArray();
+
+        measurements = new Gson().fromJson(jsonArray, ArrayList.class);
+        cpr = cprString;
+        System.out.println(measurements.toString());
+        System.out.println(measurements.get(3));
+        System.out.println(measurements.get(9999));
+        System.out.println(cpr);
+
 
     }
 
@@ -37,7 +48,10 @@ public class ekgController {
 
     });
 
-    public void findSick(List<Double> ekgList){
+    public void findSick(){
+
+
+
         markers= markers+2;
     }
 
@@ -47,13 +61,4 @@ public class ekgController {
     public void getXmlMeasurements(){
     }
 
-    static public ArrayList<Double> splitStringArray(String string) {
-        CPR= string.substring(1);
-        String[] Stringarray = string.split(",");
-        for (int i = 1; i < Stringarray.length; i++) {
-            liste.add(Double.parseDouble(Stringarray[i]));
-
-        }
-        return liste;
-    }
 }

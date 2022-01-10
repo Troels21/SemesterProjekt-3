@@ -1,6 +1,7 @@
 package api;
 
 import com.google.gson.Gson;
+import controller.ekgController;
 import dataAccesLayer.EkgSql;
 import model.ekgMeasurements;
 import model.ekgSessionList;
@@ -35,12 +36,10 @@ public class EkgService {
 
     @Path("measurements")
     @POST
-    public String pythonDataReceive(String string, @Context HttpHeaders httpHeaders) {
-        System.out.println(string);
-        System.out.println(httpHeaders.getRequestHeader("Identifier").get(0));
+    public String pythonDataReceive(String data, @Context HttpHeaders cprHeader) {
+        ekgController.getEkgController().validate(data, cprHeader.getRequestHeader("Identifier").get(0));
 
-
-        return "jeg fik : " + string;
+        return "jeg fik : " + data;
     }
 
     @Path("ekgSesJson")
