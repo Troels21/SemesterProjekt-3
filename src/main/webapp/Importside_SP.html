@@ -9,14 +9,14 @@
 <body>
 <button class="button1" onclick="window.location.replace('FrontEnd.html');">Go back</button>
 
-<div class="dropdown">
-    <p id="CPRlabel">CPR</p>
-    <input type="text" id="cpr">
-    <p></p>
-    <button class="VaelgerKnap" onclick="">Søg</button>
-    <p></p>
-    <div class="ekgVaelger">
-    </div>
+<p id="CPRlabel">CPR</p>
+<input type="text" id="cpr">
+<p></p>
+<button class="VaelgerKnap" onclick="cprSearch()">Søg</button>
+<p></p>
+
+
+<div class="ekgVaelger" id="ekgVaelgerid"></div>
 
 </div>
 
@@ -24,6 +24,7 @@
 <canvas id="myCanvas">
 </canvas>
 </div>
+
 
 </body>
 
