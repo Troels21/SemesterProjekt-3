@@ -48,7 +48,6 @@ body {
     color: black;
     font-size: 30px;
     position: relative;
-    top: 50px;
     left: 20px;
 }
 
@@ -111,7 +110,7 @@ body {
 
 .autotider {
     font-size: 25px;
-    background-color: lightsteelblue;
+    background-color: ghostwhite;
 }
 
 .autoname {
@@ -314,12 +313,17 @@ body {
 
 #reset{
     position: absolute;
-    left: 260px;
+    left: 210px;
     bottom: 15px;
 }
 #tilfoej{
     position: absolute;
-    left: 210px;
+    left: 160px;
+    bottom: 15px;
+}
+
+#Trash{
+    left: 260px;
     bottom: 15px;
 }
 
@@ -461,5 +465,11 @@ textarea {
     width: 230px;
     border: 0px;
 }
+
+.R_Button{
+    position: absolute;
+    right: -50px;
+}
+
 
 
