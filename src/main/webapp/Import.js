@@ -35,44 +35,21 @@ function LineChart(con) {
     this.drawYAxis();
 }
 
-LineChart.prototype.getLongestValueWidth = function () {
-    this.context.font = this.font;
-    var longestValueWidth = 0;
-    for (var n = 0; n <= this.numYTicks; n++) {
-        var value = this.maxY - (n * this.unitsPerTickY);
-        longestValueWidth = Math.max(longestValueWidth, this.context.measureText(value).width);
-    }
-    return longestValueWidth;
-};
-LineChart.prototype.drawXAxis = function () {
-    var context = this.context;
-    context.save();
-    context.beginPath();
-    context.moveTo(this.x, this.y + this.height);
-    context.lineTo(this.x + this.width, this.y + this.height);
-    context.strokeStyle = this.axisColor;
-    context.lineWidth = 2;
-    context.stroke();
 
-    // draw tick marks
-    for (var n = 0; n < this.numXTicks; n++) {
-        context.beginPath();
-        context.moveTo((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height);
-        context.lineTo((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height - this.tickSize);
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+);
+
+
+/*window.onload=(function (){
+
+    let canvas = document.getElementById("myChart")
+    let context = canvas.getContext("2d")
+    context.moveTo(0,300)
+    for (let i = 0; i<data.length; i++){
+        context.lineTo(i,300-data[i]*100);
         context.stroke();
-    }
-// draw labels
-    context.font = this.font;
-    context.fillStyle = "black";
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-
-    for (var n = 0; n < this.numXTicks; n++) {
-        var label = Math.round((n + 1) * this.maxX / this.numXTicks);
-        context.save();
-        context.translate((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height + this.padding);
-        context.fillText(label, 0, 0);
-        context.restore();
     }
     context.restore();
 };

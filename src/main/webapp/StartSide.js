@@ -30,13 +30,12 @@ function udfyldskema(data) {
         cpr = "CPR: " + data.aftaleListe[i].CPR + "\t";
         note = "Notat: " + data.aftaleListe[i].notat;
 
-
         let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
         let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
         let Notat = '<span class="autonote">' + note + '</span>';
-        let RadioButton = '<span class="R_Button">' + '<input type="radio">' + '</span><hr>';
+        let Checkbox = '<span class="R_Button">' + '<input type="checkbox">' + '</span><hr>';
 
-        container += Tider + CPR + Notat + RadioButton;
+        container += Tider + CPR + Notat + Checkbox;
     }
 
     document.getElementById("autotider").innerHTML = container;
@@ -163,6 +162,9 @@ function formfetch() {
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
+}
+
+function delete_Aftale(){
 }
 
 function closeForm() {
