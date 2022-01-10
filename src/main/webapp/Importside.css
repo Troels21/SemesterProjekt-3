@@ -30,6 +30,7 @@ body {
     background-color: ghostwhite;
     height: auto;
     position: absolute;
+    border:1px solid #000000;
     border-radius: 5px;
 
 }
@@ -78,5 +79,16 @@ body {
 
 #myChart{
     background-color: ghostwhite;
+}
+
+.comments{
+    right: 10px;
+    background-color: ghostwhite;
+    width: 250px;
+    height: 600px;
+    position: absolute;
+    border:1px solid #000000;
+    border-radius: 5px;
+
 }
 

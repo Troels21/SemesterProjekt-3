@@ -42,10 +42,10 @@ public class EkgService {
         return "jeg fik : " + data;
     }
 
-    @Path("ekgSesJson")
+    @Path("ekgSessionJson")
     @GET
-    public String test(@QueryParam("cpr") String cpr){
-        if (cpr != null)  {
+    public String getSessionJson(@QueryParam("cpr") String cpr) {
+        if (cpr != null) {
             try {
                 return new Gson().toJson(EkgSql.getEkgSql().getEkgSessions(cpr));
             } catch (SQLException throwables) {
@@ -54,4 +54,19 @@ public class EkgService {
         }
         return null;
     }
+
+    @Path("ekgMeasurementsJson")
+    @GET
+    public String getMeasurementJson(@QueryParam("sessionID") Integer sessionID) {
+        if (sessionID != null) {
+            try {
+                return new Gson().toJson(EkgSql.getEkgSql().getMeasurements(sessionID));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
+    }
+
 }
+
