@@ -91,6 +91,7 @@ body {
     align-items: center;
     background-color: ghostwhite;
     border-radius: 10px;
+    bottom: 20px;
 }
 
 .autotiderbar {
@@ -131,6 +132,8 @@ body {
     align-items: center;
     background-color: ghostwhite;
     border-radius: 10px;
+    bottom: 20px;
+
 }
 
 .actualdate {
@@ -256,8 +259,6 @@ body {
 .form-popup {
     display: none;
     position: fixed;
-    bottom: 1px;
-    right: 20px;
     border: 1px solid black;
 }
 
@@ -265,6 +266,9 @@ body {
     width: 260px;
     padding: 10px;
     background-color: ghostwhite;
+    position: absolute;
+    top: -423px;
+    right: 3px;
 }
 
 .button1 {
@@ -305,6 +309,8 @@ body {
     background-color: #EDEDED;
     border-color: #EDEDED;
     padding-bottom: 15px;
+    position: absolute;
+    bottom: 90px;
 }
 
 #reset{
@@ -437,7 +443,7 @@ textarea {
 #MyClockDisplay{
     left: 20px;
     color: black;
-    width: 190px;
+    width: 200px;
     border-radius: 10px;
     padding: 10px;
     font-size: 18px;
