@@ -122,3 +122,8 @@ function updateEkgSession() {
             }
         }).then(res => res.statusText).then(res => alert(res));
 }
+
+window.onload = function () {
+    cprSearch()
+    document.getElementById("cpr").value=sessionStorage.getItem("user");
+}

@@ -71,7 +71,7 @@ async function giveTokenbt1(res, user) {
         //For ekstra krymmel fisker vi en bruger ud af tokenen
         localStorage.setItem("user", user);
         //Viderestil til den rigtige side!
-        window.location.href = "Ny_Frontend.html"
+        window.location.href = "FrontEnd_Patient.html"
     } else {
         alert("Unable to login, check password")
     }
@@ -84,7 +84,7 @@ async function giveTokenbt2(res, user) {
         //For ekstra krymmel fisker vi en bruger ud af tokenen
         localStorage.setItem("user", user);
         //Viderestil til den rigtige side!
-        window.location.href = "FrontEnd.html"
+        window.location.href = "FrontEnd_SP.html"
     } else {
         alert("Unable to login, check password")
     }
