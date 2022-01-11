@@ -5,13 +5,11 @@ visibilityListen.addEventListener('click', togglevisibiliy) //brug functionen hv
 var passlabel = document.getElementById('password')
 var btn = document.getElementById('btn')
 
-passlabel.addEventListener('keyup', (e) =>
-{
-    if(e.keyCode===13){
+passlabel.addEventListener('keyup', (e) => {
+    if (e.keyCode === 13) {
         btn.click();
     }
 })
-
 
 
 function togglevisibiliy() {
@@ -30,33 +28,66 @@ function togglevisibiliy() {
 let user = "";
 let pass = "";
 
-async function login() {
+async function loginbt1() {
     // Serialiser formen til js-objekt
     //let loginform = document.getElementById("loginform");
     user = document.getElementById("username").value;
     pass = document.getElementById("password").value;
     sessionStorage.setItem("user", user);
 
-    //const formData = new FormData(loginform);
-    //const object = Object.fromEntries(formData);
-    console.log(user + pass)
+
     //Bruger fetch-API til at sende data - POST. JSON.stringify for at serialisere objekt til string.
-    const res = await fetch("data/login?" + new URLSearchParams({
+    fetch("data/login?" + new URLSearchParams({
         username: user,
         password: pass,
     }, {
         method: "GET"
-    }));
+    })).then(resp => giveTokenbt1(resp,user));
 
-    // hvis vi får en token, gemmer vi den i browserens localstorage
-    const token = await res.text();
-    localStorage.setItem("token", token);
-    //For ekstra krymmel fisker vi en bruger ud af tokenen
-    const payload = window.atob(token.split(".")[1]);
-    const payloadJson = JSON.parse(payload);
-    localStorage.setItem("user", payloadJson.username);
-    //Viderestil til den rigtige side!
-    window.location.href = "FrontEnd.html"
+}
+
+async function loginbt2() {
+    // Serialiser formen til js-objekt
+    //let loginform = document.getElementById("loginform");
+    user = document.getElementById("username").value;
+    pass = document.getElementById("password").value;
+    sessionStorage.setItem("user", user);
+
+
+    //Bruger fetch-API til at sende data - POST. JSON.stringify for at serialisere objekt til string.
+    fetch("data/login?" + new URLSearchParams({
+        username: user,
+        password: pass,
+    }, {
+        method: "GET"
+    })).then(resp => giveTokenbt2(resp,user));
+
+}
+
+async function giveTokenbt1(res, user) {
+    if (res.status >= 200 && res.status <= 299) {
+        let token = await res.text();
+        localStorage.setItem("token", token);
+        //For ekstra krymmel fisker vi en bruger ud af tokenen
+        localStorage.setItem("user", user);
+        //Viderestil til den rigtige side!
+        window.location.href = "Ny_Frontend.html"
+    } else {
+        alert("Unable to login, check password")
+    }
+}
+
+async function giveTokenbt2(res, user) {
+    if (res.status >= 200 && res.status <= 299) {
+        let token = await res.text();
+        localStorage.setItem("token", token);
+        //For ekstra krymmel fisker vi en bruger ud af tokenen
+        localStorage.setItem("user", user);
+        //Viderestil til den rigtige side!
+        window.location.href = "FrontEnd.html"
+    } else {
+        alert("Unable to login, check password")
+    }
 }
 
 /*

@@ -71,7 +71,6 @@ public class EkgSql {
 
 
     public void sqlInsertEkgMeasurements(String cpr, List<Double> measurement) throws SQLException {
-
         int patID = PatientSQL.getPatientSQLobj().getPatientID(cpr);
         int sesID = getSessionID(patID);
 

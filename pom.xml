@@ -119,5 +119,13 @@
             <artifactId>jjwt</artifactId>
             <version>0.7.0</version>
         </dependency>
+
+        <!--BCencrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
     </dependencies>
 </project>

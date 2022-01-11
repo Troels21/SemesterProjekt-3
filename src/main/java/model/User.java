@@ -3,10 +3,23 @@ package model;
 public class User {
     private String username;
     private String password;
+    private boolean doctor;
 
-    public User(){
+
+    public boolean isDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        this.doctor = doctor;
+    }
+
+
+
+    public User() {
 
     }
+
     public User(String user, String s) {
         setUsername(user);
     }

@@ -6,6 +6,7 @@
         <exploded>true</exploded>
         <module>SemesterProjekt-3</module>
         <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
     <root id="root">
@@ -61,6 +62,7 @@
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.5.2" />
           <element id="library" level="project" name="Maven: org.json:json:20160212" />
           <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt:0.7.0" />
+          <element id="library" level="project" name="Maven: org.mindrot:jbcrypt:0.4" />
         </element>
       </element>
       <element id="directory" name="META-INF">

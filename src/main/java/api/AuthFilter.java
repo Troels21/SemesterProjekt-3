@@ -7,7 +7,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;
-import java.io.IOException;
 
 @Provider
 public class AuthFilter implements ContainerRequestFilter {
@@ -27,10 +26,11 @@ public class AuthFilter implements ContainerRequestFilter {
                 if (!containerRequestContext.getHeaderString("Authorization").equals("Bearer hemmeliglogin")) {
                     throw new WebApplicationException("Forkert Login", 401);
                 }
-
-            } else {
+            }
+            else {
                 try {
-                    User user = JWTHandler.validate(containerRequestContext.getHeaderString("Authorization"));
+                    User user = JWTHandler.validateToken(containerRequestContext.getHeaderString("Authorization"));
+                    containerRequestContext.setProperty("user",user);
                 } catch (Exception e) {
                     throw new WebApplicationException("Invalid Token", 401);
                 }

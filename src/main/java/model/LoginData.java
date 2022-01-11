@@ -3,10 +3,12 @@ package model;
 public class LoginData {
     private String username;
     private String password;
+    private boolean doctor;
 
     public LoginData(String user, String pass) {
         setUsername(user);
         setPassword(pass);
+
     }
 
     public String getUsername() {

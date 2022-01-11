@@ -18,6 +18,7 @@ public class JWTHandler {
     private static final int TOKEN_EXPIRY = 2880; //2 days
 
     public static String generateJwtToken(User user) {
+
         Calendar expiry = Calendar.getInstance();
         expiry.add(Calendar.MINUTE, TOKEN_EXPIRY);
         return Jwts.builder()
@@ -40,9 +41,11 @@ public class JWTHandler {
         }
         return key;
     }
+
+
     // Validering af token
-    public static User validate(String authentication) {
-        if(authentication == null){
+    public static User validateToken(String authentication) {
+        if (authentication == null) {
             throw new NotAuthorizedException("ingen header");
         }
         String[] tokenArray = authentication.split(" ");
@@ -56,9 +59,10 @@ public class JWTHandler {
             ObjectMapper mapper = new ObjectMapper();
             User user = mapper.convertValue(claims.get("user"), User.class);
             return user;
-        } catch (JwtException e){
-            System.out.println(e.getClass() +":  "+ e.getMessage());
+        } catch (JwtException e) {
+            System.out.println(e.getClass() + ":  " + e.getMessage());
             throw new NotAuthorizedException(e.getMessage());
         }
     }
+
 }

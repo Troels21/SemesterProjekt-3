@@ -7,8 +7,11 @@ import dataAccesLayer.EkgSql;
 import dataAccesLayer.SQL;
 import exceptions.OurException;
 import model.AftaleListe;
+import model.User;
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 
@@ -16,6 +19,9 @@ import java.sql.SQLException;
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_XML})
 public class AftaleService {
+
+    @Context
+    ContainerRequestContext context;
 
     @GET
     public AftaleListe getPatient(@QueryParam("cpr") String cpr) throws SQLException, OurException {
@@ -27,19 +33,35 @@ public class AftaleService {
     @Produces(MediaType.TEXT_PLAIN)
     public String makepatientSQL(@QueryParam("cpr") String cpr, @QueryParam("timestart")
             String timestart, @QueryParam("timeend") String timeend, @QueryParam("note") String notat) throws SQLException, OurException {
-        return AftaleController.getAftaleControllerOBJ().createAftale(cpr, timestart, timeend, notat);
+        User user = (User) context.getProperty("user");
+        if (user.isDoctor()) {
+            return AftaleController.getAftaleControllerOBJ().createAftale(cpr, timestart, timeend, notat);
+        } else if (!user.isDoctor()) {
+            return AftaleController.getAftaleControllerOBJ().createAftale(user.getUsername(), timestart, timeend, notat);
+        }
+        throw new WebApplicationException("You dont have rights", 401);
     }
 
     @Path("aftalerSQL")
     @GET
-    public String selectFromTime(@QueryParam("from") String from, @QueryParam("to") String to) throws SQLException {
-        return new Gson().toJson(AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to));
+    public String selectFromTime(@QueryParam("from") String from, @QueryParam("to") String to) throws SQLException, OurException {
+        User user = (User) context.getProperty("user");
+        if (user.isDoctor()) {
+            return new Gson().toJson(AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to));
+        } else if (!user.isDoctor()) {
+            return new Gson().toJson(AftaleController.getAftaleControllerOBJ().cprSearch(user.getUsername()));
+        }
+        throw new WebApplicationException("You dont have rights", 401);
     }
 
     @Path("aftalerSQL")
     @DELETE
     public String updateEkgSession(@QueryParam("numberToDelete") String data) throws SQLException {
-        AftaleSQL.getAftaleSQLObj().deleteAftaleIn(data);
-        return "I got:" + data;
+        User user = (User) context.getProperty("user");
+        if (user.isDoctor()) {
+            AftaleSQL.getAftaleSQLObj().deleteAftaleIn(data);
+            return "I got:" + data;
+        }
+        throw new WebApplicationException("You dont have rights", 401);
     }
 }
