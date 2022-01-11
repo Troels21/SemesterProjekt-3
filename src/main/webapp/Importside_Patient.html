@@ -4,27 +4,38 @@
     <meta charset="UTF-8">
     <title>Importside</title>
     <link rel="stylesheet" type="text/css" href="Importside.css">
+
 </head>
 <body>
+
 <button class="button1" onclick="window.location.replace('FrontEnd.html');">Go back</button>
 
-<div class="dropdown">
-    <p id="CPRlabel">CPR</p>
-    <input type="text" id="cpr" disabled>
-    <p></p>
-    <button class="VaelgerKnap" onclick="">Søg</button>
-    <p></p>
-    <div class="ekgVaelger">
-    </div>
+<p id="CPRlabel">CPR</p>
+<input type="text" id="cpr" disabled>
+<p></p>
+<button class="VaelgerKnap" onclick="cprSearch()">Søg</button>
 
+<p></p>
+
+
+<div class="ekgVaelger" id="ekgVaelgerid">
+    <label id="SessionID">Session ID</label>
+    <hr>
+    <div id="autoID"></div>
+</div>
+<div class="comments">
+
+    <label>Comments</label>
+    <hr>
+    <div id="autoComment"></div>
 </div>
 
 <div id="canvas">
-<canvas id="myCanvas">
-</canvas>
+    <canvas id="myChart" width="1000px" height="600px">    </canvas>
 </div>
 
-</body>
 
-<script src="Import.js"></script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="Import_Patient.js"></script>
 </html>
