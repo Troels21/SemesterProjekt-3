@@ -7,12 +7,16 @@
 
 </head>
 <body>
+
 <button class="button1" onclick="window.location.replace('FrontEnd.html');">Go back</button>
+<button class="button2" id="SaveComment" onclick="updateEkgSession()">Save new comment</button>
+
 
 <p id="CPRlabel">CPR</p>
 <input type="text" id="cpr">
 <p></p>
 <button class="VaelgerKnap" onclick="cprSearch()">Søg</button>
+
 <p></p>
 
 
@@ -22,6 +26,7 @@
     <div id="autoID"></div>
 </div>
 <div class="comments">
+
     <label>Comments</label>
     <hr>
     <div id="autoComment"></div>

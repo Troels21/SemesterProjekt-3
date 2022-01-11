@@ -42,6 +42,8 @@ public class EkgService {
         return "jeg fik : " + data;
     }
 
+
+
     @Path("ekgSessionJson")
     @GET
     public String getSessionJson(@QueryParam("cpr") String cpr) {
@@ -53,6 +55,16 @@ public class EkgService {
             }
         }
         return null;
+    }
+    @Path("ekgSessionJson")
+    @PUT
+    public String updateEkgSession(@QueryParam("sessionID") String sessionID, @QueryParam("") String comments){
+        try {
+            EkgSql.getEkgSql().updateEkgSession(sessionID,comments);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "I got:" + sessionID +" and "+comments;
     }
 
     @Path("ekgMeasurementsJson")

@@ -53,7 +53,7 @@ public class EkgSql {
             ekgSessionList ekgsessionList = new ekgSessionList();
             while (rs.next()) {
                 ekgSession ekgses = new ekgSession();
-                String[] markerArray = rs.getString(3).split("\\|");
+                String[] markerArray = rs.getString(3).split(",");
 
                 ekgses.setTimeStart(rs.getString(1).substring(0, 16));
                 ekgses.setComment(rs.getString(4));
@@ -138,5 +138,23 @@ public class EkgSql {
         }
         SQL.getSqlOBJ().removeConnectionSQL();
         return null;
+    }
+
+    public void updateEkgSession(String sesID, String comments) throws SQLException {
+        SQL.getSqlOBJ().makeConnectionSQL();
+        PreparedStatement pp = SQL.getSqlOBJ().myConn.prepareStatement("UPDATE malingstidspunkt\n" +
+                "SET comments = ?\n" +
+                "WHERE sessionID = ? ;");
+
+                try{
+                    pp.setString(1,comments);
+                    pp.setString(2,sesID);
+
+                    pp.execute();
+                    SQL.getSqlOBJ().removeConnectionSQL();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
     }
 }

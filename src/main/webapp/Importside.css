@@ -25,6 +25,27 @@ body {
     transform: translateY(4px);
 }
 
+.button2 {
+    border: 1px solid white;
+    background-color: ghostwhite;
+    color: black;
+    height: 30px;
+    position: absolute;
+    right: 10px;
+    top: 80px;
+    border-radius: 5px;
+}
+
+.button2:hover {
+    background-color: lightgray;
+}
+
+.button2:active {
+    background-color: lightgray;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 #canvas{
     left: 250px;
     background-color: ghostwhite;
