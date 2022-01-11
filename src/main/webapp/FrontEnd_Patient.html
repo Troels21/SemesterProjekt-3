@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Start side</title>
-  <link rel="stylesheet" type="text/css" href="Startside.css">
+  <link rel="stylesheet" type="text/css" href="FrontEnd_Patient.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
 <body>
@@ -39,14 +39,13 @@ refresh
 
 <!--DETTE ER FOR AUTOGENNERET TIDER -->
 <div class="autotidersted" id="autosted">
-  <div class="autotiderbar" id="autotiderbar">Tider på dagen:</div>
+  <div class="autotiderbar" id="autotiderbar">Aftaler</div>
   <div class="autotider" id="autotider"></div>
 </div>
 
 <!-- journal -->
 <div class="form-popup" id="myForm">
   <div class="form-container" >
-    <h1>Aftale</h1>
     <span>
             <label for="cpr">CPR</label></span>
     <span>
@@ -74,30 +73,6 @@ refresh
   </div>
 </div>
 
-<!--DETTE ER FOR SKEMA-->
-
-<div class="schema">
-  <div class="actualdate">
-    <div class="prev" onclick="prevdate()">Forrige</div>
-    <h1 id="actualmonth"></h1>
-    <div class="next" onclick="nextdate()">N&#230ste</div>
-  </div>
-  <div>
-    <div class="days">
-      <div>Mandag</div>
-      <div>Tirsdag</div>
-      <div>Onsdag</div>
-      <div>Torsdag</div>
-      <div>Fredag</div>
-      <div>Lørdag</div>
-      <div>Søndag</div>
-    </div>
-
-    <div class="lastdates"></div>
-    <div class="dates"></div>
-    <div class="nextdates"></div>
-  </div>
-</div>
 
 </body>
 <script src="Frontend.js"></script>
