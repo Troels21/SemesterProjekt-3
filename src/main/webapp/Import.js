@@ -32,7 +32,7 @@ function makeCheckbox(data) {
         note = data.ekgSessionList[i].comment;
 
         let Checkbox = '<span class="Check_Box">' + timestart + '<input type="checkbox" onclick="showMeasurement(' + sesid + ',' + i + ')" id="checkbox' + i + '">' + '</span>' + '<hr>';
-        let Comment = '<span class="commentbox" id="comment' + i + '" hidden>marker:<br><p id="marker' + i + '">' + marker + '</p><br> note:<br><textarea style="width: 225px" id="textarea' + i + '">' + note + '</textarea><hr></span>'
+        let Comment = '<span class="commentbox" id="comment' + i + '" hidden>Sessionid: '+sesid+'<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '">' + note + '</textarea><hr></span>'
 
 
         container += Checkbox;
@@ -43,15 +43,15 @@ function makeCheckbox(data) {
 }
 
 function showMeasurement(sesID, boxNR) {
+    boxnr =boxNR;
     sessionid = sesID;
     for (let l = 0; l <= i; l++) {
         let comment = "comment" + l;
-        document.getElementById(comment).hidden = true;
+        document.getElementById(comment).hidden = false;
         if (!l == boxNR) {
             let checkbox = "checkbox" + l;
             document.getElementById(checkbox).checked = false;
-            document.getElementById(comment).hidden = false;
-            boxnr = boxNR;
+            document.getElementById(comment).hidden = true;
         }
         ekgMeasFetch(sesID)
     }
@@ -112,13 +112,13 @@ let myChart = new Chart(
 );
 
 function updateEkgSession() {
-    fetch("data/ekgSessions/ekgSessionJson?" + new URLSearchParams({
-        sessionID: sessionid,
-        comments: document.getElementById(("textarea" + boxnr)).innerText
-    }), {
-        method: "PUT",
-        headers: {
-            "Authorization": localStorage.getItem("token")
-        }
-    }).then(res => res.statusText).then(res => alert(res));
+    let endpoint = 'data/ekgSessions/ekgSessionJson/' + sessionid + '/comment';
+    fetch(endpoint
+        , {
+            method: "PUT",
+            body: document.getElementById(("textarea" + boxnr)).value,
+            headers: {
+                "Authorization": localStorage.getItem("token")
+            }
+        }).then(res => res.statusText).then(res => alert(res));
 }

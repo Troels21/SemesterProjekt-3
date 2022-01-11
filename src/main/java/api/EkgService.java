@@ -56,15 +56,16 @@ public class EkgService {
         }
         return null;
     }
-    @Path("ekgSessionJson")
+
+    @Path("ekgSessionJson/{sessionID}/comment")
     @PUT
-    public String updateEkgSession(@QueryParam("sessionID") String sessionID, @QueryParam("") String comments){
+    public String updateEkgSession(@PathParam("sessionID") String sessionID, String comment){
         try {
-            EkgSql.getEkgSql().updateEkgSession(sessionID,comments);
+            EkgSql.getEkgSql().updateEkgSession(sessionID,comment);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "I got:" + sessionID +" and "+comments;
+        return "I got:" + sessionID +" and "+comment;
     }
 
     @Path("ekgMeasurementsJson")
