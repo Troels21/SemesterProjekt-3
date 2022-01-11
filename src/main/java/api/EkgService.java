@@ -42,8 +42,6 @@ public class EkgService {
         return "jeg fik : " + data;
     }
 
-
-
     @Path("ekgSessionJson")
     @GET
     public String getSessionJson(@QueryParam("cpr") String cpr) {

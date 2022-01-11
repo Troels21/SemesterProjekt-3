@@ -50,7 +50,7 @@ public class AftaleController {
                 aftale.setTimeStart(timestart);
                 aftale.setTimeEnd(timeend);
                 aftale.setNotat(note);
-                aftale.setKlinikID("4");
+                aftale.setKlinikID("3");
 
                 AftaleSQL.getAftaleSQLObj().insertAftaleSQL(aftale);
                 return "added patient" + aftale;

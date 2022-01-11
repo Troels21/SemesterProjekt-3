@@ -3,6 +3,7 @@ package api;
 import com.google.gson.Gson;
 import controller.AftaleController;
 import dataAccesLayer.AftaleSQL;
+import dataAccesLayer.EkgSql;
 import dataAccesLayer.SQL;
 import exceptions.OurException;
 import model.AftaleListe;
@@ -33,5 +34,16 @@ public class AftaleService {
     @GET
     public String selectFromTime(@QueryParam("from") String from, @QueryParam("to") String to) throws SQLException {
         return new Gson().toJson(AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to));
+    }
+
+    @Path("aftalerSQL/{sessionID}/comment")
+    @DELETE
+    public String updateEkgSession(@PathParam("sessionID") String sessionID, String comment){
+        try {
+            EkgSql.getEkgSql().updateEkgSession(sessionID,comment);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "I got:" + sessionID +" and "+comment;
     }
 }

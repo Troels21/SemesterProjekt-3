@@ -1,5 +1,6 @@
 let tok = localStorage.getItem("token");
 if (!tok){window.location.href="LoginSide.html"}
+let counter;
 
 function hentAftaleFecth(from, to) {
     let fra = from;
@@ -23,22 +24,36 @@ function udfyldskema(data) {
     let container = "";
     let note = "";
 
-    for (let i = 0; i < data.aftaleListe.length; i++) {
-        timestart = data.aftaleListe[i].timeStart.substring(11, 16) + "\t-\t";
-        timeend = data.aftaleListe[i].timeEnd.substring(11, 16)
-        klinikId = ("klinikId: " + data.aftaleListe[i].klinikID);
-        cpr = "CPR: " + data.aftaleListe[i].CPR + "\t";
-        note = "Notat: " + data.aftaleListe[i].notat;
+    for (counter = 0; counter < data.aftaleListe.length; counter++) {
+        timestart = data.aftaleListe[counter].timeStart.substring(11, 16) + "\t-\t";
+        timeend = data.aftaleListe[counter].timeEnd.substring(11, 16)
+        klinikId = ("klinikId: " + data.aftaleListe[counter].klinikID);
+        cpr = "CPR: " + data.aftaleListe[counter].CPR + "\t";
+        note = "Notat: " + data.aftaleListe[counter].notat;
+        aftaleID= data.aftaleListe[counter].ID;
+
 
         let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
         let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
         let Notat = '<span class="autonote">' + note + '</span>';
-        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox'+i+'">' + '</span><hr>';
+        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox'+counter+'" name="'+aftaleID+'">' + '</span><hr>';
 
         container += Tider + CPR + Notat + Checkbox;
     }
 
     document.getElementById("autotider").innerHTML = container;
+}
+
+function deleteAftale(){
+    let numberToDelete="("
+    for (let l=0;l<=counter;l++){
+        let box = "checkbox"+l;
+        if (document.getElementById(box).checked){
+            numberToDelete +=document.getElementById(box).getAttribute("name");
+        }
+    }
+    numberToDelete +=")";
+    console.log(numberToDelete);
 }
 
 //Kalendar
@@ -127,7 +142,6 @@ function setdates(year, month, day) {
     if (i === 0) {
         hentAftaleFecth(fromfrom, tiltil);
         setInterval(function () {
-            refresh()
         }, 10000);
         i++;
     } else {
@@ -162,9 +176,6 @@ function formfetch() {
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
-}
-
-function delete_Aftale(){
 }
 
 function closeForm() {
