@@ -135,4 +135,15 @@ public class AftaleSQL {
         SQL.getSqlOBJ().removeConnectionSQL();
         return aftaleListe;
     }
+
+    public void deleteAftaleIn(String deleteIn) throws SQLException {
+        SQL.getSqlOBJ().makeConnectionSQL();
+        PreparedStatement pp = SQL.getSqlOBJ().myConn.prepareStatement("DELETE FROM aftaler where aftaleID in "+deleteIn+" ;");
+        try {
+            pp.execute();
+            SQL.getSqlOBJ().removeConnectionSQL();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

@@ -45,7 +45,7 @@ function makeCheckbox(data) {
 function showMeasurement(sesID, boxNR) {
     boxnr =boxNR;
     sessionid = sesID;
-    for (let l = 0; l <= i; l++) {
+    for (let l = 0; l < i; l++) {
         let comment = "comment" + l;
         document.getElementById(comment).hidden = false;
         if (!l == boxNR) {

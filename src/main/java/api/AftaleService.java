@@ -36,14 +36,10 @@ public class AftaleService {
         return new Gson().toJson(AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to));
     }
 
-    @Path("aftalerSQL/{sessionID}/comment")
+    @Path("aftalerSQL")
     @DELETE
-    public String updateEkgSession(@PathParam("sessionID") String sessionID, String comment){
-        try {
-            EkgSql.getEkgSql().updateEkgSession(sessionID,comment);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return "I got:" + sessionID +" and "+comment;
+    public String updateEkgSession(@QueryParam("numberToDelete") String data) throws SQLException {
+        AftaleSQL.getAftaleSQLObj().deleteAftaleIn(data);
+        return "I got:" + data;
     }
 }

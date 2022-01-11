@@ -1,5 +1,7 @@
 let tok = localStorage.getItem("token");
-if (!tok){window.location.href="LoginSide.html"}
+if (!tok) {
+    window.location.href = "LoginSide.html"
+}
 let counter;
 
 function hentAftaleFecth(from, to) {
@@ -30,13 +32,13 @@ function udfyldskema(data) {
         klinikId = ("klinikId: " + data.aftaleListe[counter].klinikID);
         cpr = "CPR: " + data.aftaleListe[counter].CPR + "\t";
         note = "Notat: " + data.aftaleListe[counter].notat;
-        aftaleID= data.aftaleListe[counter].ID;
+        aftaleID = data.aftaleListe[counter].ID;
 
 
         let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
         let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
         let Notat = '<span class="autonote">' + note + '</span>';
-        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox'+counter+'" name="'+aftaleID+'">' + '</span><hr>';
+        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox' + counter + '" name="' + aftaleID + '">' + '</span><hr>';
 
         container += Tider + CPR + Notat + Checkbox;
     }
@@ -44,16 +46,25 @@ function udfyldskema(data) {
     document.getElementById("autotider").innerHTML = container;
 }
 
-function deleteAftale(){
-    let numberToDelete="("
-    for (let l=0;l<=counter;l++){
-        let box = "checkbox"+l;
-        if (document.getElementById(box).checked){
-            numberToDelete +=document.getElementById(box).getAttribute("name");
+function deleteAftale() {
+    let numberToDelete = "(0"
+    for (let l = 0; l < counter; l++) {
+        let box = "checkbox" + l;
+
+        if (document.getElementById(box).checked) {
+            numberToDelete += "," + document.getElementById(box).getAttribute("name");
         }
     }
-    numberToDelete +=")";
-    console.log(numberToDelete);
+    numberToDelete += ")";
+    fetch("data/aftaler/aftalerSQL?" + new URLSearchParams({
+        numberToDelete: numberToDelete
+    })
+        , {
+            method: "DELETE",
+            headers: {
+                "Authorization": localStorage.getItem("token")
+            }
+        }).then(resp => alert(resp.text)).then(refresh);
 }
 
 //Kalendar
@@ -82,7 +93,7 @@ function makecalender(date) {
     const dates = document.querySelector(".dates");
     const lastdates = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
-    document.getElementById("actualmonth").innerText = mymonth +"    " +date.getFullYear();
+    document.getElementById("actualmonth").innerText = mymonth + "    " + date.getFullYear();
 
     const firstdayindex = date.getDay() - 1;
 
@@ -171,7 +182,6 @@ function formfetch() {
     }).then(text => alert(text)).catch(Error => alert(Error));
 
 
-
 }
 
 function openForm() {
@@ -249,7 +259,7 @@ function noWeekend() {
         end.value = "";
         timefree.value = "";
     }
-    if (day.getHours() >16 || day.getHours()<8) {
+    if (day.getHours() > 16 || day.getHours() < 8) {
         alert('Between 8-16');
         datetime.value = "";
         start.value = "";
