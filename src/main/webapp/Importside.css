@@ -2,6 +2,7 @@
 body {
     font-family: "Georgia", serif;
     background-color: #90D7FF;
+
 }
 
 
@@ -115,6 +116,5 @@ body {
     position: absolute;
     border:1px solid #000000;
     border-radius: 5px;
-
 }
 
