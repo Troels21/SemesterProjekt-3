@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan  7 11:20:30 2022
+
 @author: rajaabengad
 """
 
@@ -9,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import signal
 import wfdb
-
+from pandas import Series
 
 
 fs=500
@@ -48,4 +50,9 @@ plt.plot(t,outputSignal)
 plt.title('Tidsdomæne')
 plt.xlabel('tid (s)')
 plt.ylabel('mV')
+plt.show()
+
+
+plt.magnitude_spectrum(outputSignal,Fs=500)
+plt.title('frekvensdomæne')
 plt.show()
