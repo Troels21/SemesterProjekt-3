@@ -164,7 +164,6 @@ function setdates(year, month, day) {
 function formfetch() {
     fetch("data/aftaler/aftalerSQL?" + new URLSearchParams({
         cpr: document.getElementById("cpr").value,
-        //name: document.getElementById("navn").value,
         timestart: document.getElementById("timeStart").value,
         timeend: document.getElementById("timeEnd").value,
         note: document.getElementById("textarea").value
@@ -175,11 +174,11 @@ function formfetch() {
         }
     }).then(async resp => {
         if (resp.status >= 200 && resp.status <= 299) {
-            await resp.text();
+            alert("OK");
         } else {
             throw Error(await resp.text());
         }
-    }).then(text => alert(text.text())).then(refresh);
+    }).then(refresh).catch(Error => alert(Error));
 
 
 }
@@ -267,22 +266,18 @@ function noWeekend() {
         timefree.value = "";
     }
 }
-//var timeApi = 'http://worldtimeapi.org/api/timezone/Europe/Copenhagen';
-
 
 function showTime() {
     var date = new Date();
-    let dato = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+    let dato = `${date.getUTCDate()}/${date.getUTCMonth()+1}/${date.getUTCFullYear()}`
     var time = date.getHours();
     var minut = date.getMinutes();
 
     if (minut < 10) {
         minut = "0" + minut;
     }
-    //  var sekunder = date.getSeconds(); //Hvis vi skal have sekunder med
 
     document.getElementById("MyClockDisplay").innerText = `${dato} kl. ${time}:${minut}` //kl. " + time + ":" + minut; // +":"+sekunder;
-    //document.getElementById("MyClockDisplay").textContent = "kl. " + time + ":" + minut; //+":"+sekunder;
 
     setTimeout(showTime, 10000,); //Tiden kan ændres, hvis vi er begrænset på processernes kapicitet
 }
@@ -291,7 +286,7 @@ function refresh() {
     hentAftaleFecth(fromfrom, tiltil)
 }
 
-document.getElementById("brugernavn").innerText = sessionStorage.getItem("user");
+document.getElementById("brugernavn").innerText = "User: "+ sessionStorage.getItem("user");
 
 function logud() {
     sessionStorage.setItem("user", "");

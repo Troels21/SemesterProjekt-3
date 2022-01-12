@@ -22,7 +22,7 @@ body {
 .hotbar {
     position: absolute;
     top: 5px;
-    right: 5%;
+    right: 100px;
     height: auto;
     width: auto;
     display: grid;
@@ -48,7 +48,7 @@ body {
     color: black;
     font-size: 30px;
     position: relative;
-    left: 20px;
+    left: 5px;
 }
 
 /*DETTE ER FOR MELLEMSTED*/
@@ -162,7 +162,7 @@ body {
     background-color: ghostwhite;
     position: absolute;
     top: -423px;
-    right: 3px;
+    right: 100px;
 }
 
 .button1 {

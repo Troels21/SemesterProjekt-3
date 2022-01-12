@@ -5,7 +5,7 @@ if (!tok) {
 let counter;
 
 function hentAftaleFecth() {
-    fetch("data/aftaler/aftalerSQL?",{
+    fetch("data/aftaler/aftalerSQL?", {
         headers: {
             "Authorization": localStorage.getItem("token")
         }
@@ -31,10 +31,9 @@ function udfyldskema(data) {
 
         let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
         let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
-        let Notat = '<span class="autonote">' + note + '</span>';
-        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox' + counter + '" name="' + aftaleID + '">' + '</span><hr>';
+        let Notat = '<span class="autonote">' + note + '</span><hr>';
 
-        container += Tider + CPR + Notat + Checkbox;
+        container += Tider + CPR + Notat;
     }
 
     document.getElementById("autotider").innerHTML = container;
@@ -76,17 +75,17 @@ function formfetch() {
         }
     }).then(async resp => {
         if (resp.status >= 200 && resp.status <= 299) {
-            await resp.text();
+            alert("OK");
         } else {
             throw Error(await resp.text());
         }
-    }).then(text => alert(text.text())).then(refresh);
-
-
+    }).then(refresh).catch(Error => alert(Error))
 }
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
+    document.getElementById("cpr").value = sessionStorage.getItem("user");
+
 }
 
 function closeForm() {
@@ -169,39 +168,32 @@ function noWeekend() {
     }
 }
 
-
-//var timeApi = 'http://worldtimeapi.org/api/timezone/Europe/Copenhagen';
-
-
-function showTime() {
-    var date = new Date();
-    let dato = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
-    var time = date.getHours();
-    var minut = date.getMinutes();
-
-    if (minut < 10) {
-        minut = "0" + minut;
-    }
-    //  var sekunder = date.getSeconds(); //Hvis vi skal have sekunder med
-
-    document.getElementById("MyClockDisplay").innerText = `${dato} kl. ${time}:${minut}` //kl. " + time + ":" + minut; // +":"+sekunder;
-    //document.getElementById("MyClockDisplay").textContent = "kl. " + time + ":" + minut; //+":"+sekunder;
-
-    setTimeout(showTime, 10000,); //Tiden kan ændres, hvis vi er begrænset på processernes kapicitet
-}
-
 function refresh() {
     hentAftaleFecth()
 }
-
 
 function logud() {
     sessionStorage.setItem("user", "");
     window.location.replace("LoginSide.html");
 }
 
+function showTime() {
+    var date = new Date();
+    let dato = `${date.getUTCDate()}/${date.getUTCMonth()+1}/${date.getUTCFullYear()}`
+    var time = date.getHours();
+    var minut = date.getMinutes();
+
+    if (minut < 10) {
+        minut = "0" + minut;
+    }
+
+    document.getElementById("MyClockDisplay").innerText = `${dato} kl. ${time}:${minut}` //kl. " + time + ":" + minut; // +":"+sekunder;
+
+    setTimeout(showTime, 10000,); //Tiden kan ændres, hvis vi er begrænset på processernes kapicitet
+}
+
 window.onload = function () {
-    showTime()
     refresh();
-    document.getElementById("brugernavn").value = localStorage.getItem("user");
+    document.getElementById("brugernavn").innerText = "CPR: "+sessionStorage.getItem("user");
+    showTime();
 }
