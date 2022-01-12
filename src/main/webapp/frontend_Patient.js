@@ -21,8 +21,8 @@ function udfyldskema(data) {
     let note = "";
 
     for (counter = 0; counter < data.aftaleListe.length; counter++) {
-        timestart = data.aftaleListe[counter].timeStart.substring(11, 16) + "\t-\t";
-        timeend = data.aftaleListe[counter].timeEnd.substring(11, 16)
+        timestart = data.aftaleListe[counter].timeStart + "\t-\t";
+        timeend = data.aftaleListe[counter].timeEnd;
         klinikId = ("klinikId: " + data.aftaleListe[counter].klinikID);
         cpr = "CPR: " + data.aftaleListe[counter].CPR + "\t";
         note = "Notat: " + data.aftaleListe[counter].notat;

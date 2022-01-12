@@ -1,17 +1,19 @@
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import dataAccesLayer.EkgSql;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalDouble;
+
 
 public class ekgController {
 
-    static private List<Double> measurements;
-    static private String cpr;
+    private double[] measurements;
+    private String cpr;
     private String markers;
     private String comments;
     private String timeStart;
@@ -28,37 +30,59 @@ public class ekgController {
         return EKG_CONTROLLER;
     }
 
+    public void validate(String data, String cprString) {
+        try {
+            JsonElement json = new JsonParser().parse(data);
 
-     public void validate(String data, String cprString){
-        JsonElement json = new JsonParser().parse(data);
+            JsonArray jsonArray = json.getAsJsonArray();
 
-        JsonArray jsonArray = json.getAsJsonArray();
+            measurements = null;
+            measurements = new Gson().fromJson(jsonArray, double[].class);
+            cpr = cprString;
 
-        measurements = new Gson().fromJson(jsonArray, ArrayList.class);
-        cpr = cprString;
-        System.out.println(measurements.toString());
-        System.out.println(measurements.get(3));
-        System.out.println(measurements.get(9999));
-        System.out.println(cpr);
-
-
+            Thread thread = new Thread(findSick);
+            thread.start();
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
-    private final Thread ekgAlgoThread = new Thread(()-> {
+    private final Thread findSick = new Thread(() -> {
+        int lastCounter = -101;
+        List<Integer> distance = new ArrayList<>();
+        List<Integer> markerToDistance = new ArrayList<>();
+        double thisPersonAverageDistance = 0;
+        int normalPersonAverageDistance = 500;
+        String markers = "";
 
+        for (int i = 0; i < measurements.length; i++) {
+            if (measurements[i] >= (Arrays.stream(measurements).max().getAsDouble() * 0.55) & (lastCounter - i < -100)) {
+                distance.add((i - lastCounter));
+                markerToDistance.add(i);
+                lastCounter = i;
+            }
+        }
+
+        for (int i = 0; i < distance.size(); i++) {
+            thisPersonAverageDistance += distance.get(i);
+        }
+
+        thisPersonAverageDistance = (thisPersonAverageDistance / distance.size());
+        double bpm = (30000 / thisPersonAverageDistance);
+
+        for (int i = 0; i < distance.size(); i++) {
+            if ((normalPersonAverageDistance - distance.get(i)) < -500 || (normalPersonAverageDistance - distance.get(i)) > 300) {
+                markers = (markers + markerToDistance.get(i) + "|");
+            }
+        }
+
+        try {
+            EkgSql.getEkgSql().sqlInsertEkgSession(markers,"BPM: "+bpm+"",cpr);
+
+            EkgSql.getEkgSql().sqlInsertEkgMeasurements(cpr,measurements);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     });
-
-    public void findSick(){
-
-
-
-        markers= markers+2;
-    }
-
-    public void getXmlEkgSession(){
-    }
-
-    public void getXmlMeasurements(){
-    }
 
 }

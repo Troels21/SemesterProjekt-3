@@ -70,15 +70,14 @@ public class EkgSql {
     }
 
 
-    public void sqlInsertEkgMeasurements(String cpr, List<Double> measurement) throws SQLException {
+    public void sqlInsertEkgMeasurements(String cpr, double[] measurement) throws SQLException {
         int patID = PatientSQL.getPatientSQLobj().getPatientID(cpr);
         int sesID = getSessionID(patID);
-
         try {
-            String sql = "INSERT INTO ekg(maling,sessionID,patientID) values("+measurement.get(0) + "," + sesID + "," + patID + ")";
+            String sql = "INSERT INTO ekg(maling,sessionID,patientID) values("+measurement[0] + "," + sesID + "," + patID + ")";
 
-            for (int i = 1; i < measurement.size(); i++) {
-                sql = sql + ",(" + measurement.get(i) + "," + sesID + "," + patID + ")";
+            for (int i = 1; i < measurement.length; i++) {
+                sql = sql + ",(" + measurement[i] + "," + sesID + "," + patID + ")";
             }
 
             sql = sql + ";";
