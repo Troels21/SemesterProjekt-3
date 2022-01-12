@@ -50,11 +50,12 @@ function showMeasurement(sesID, boxNR) {
         document.getElementById(comment).hidden = false;
         if (!l == boxNR) {
             let checkbox = "checkbox" + l;
+            console.log(checkbox);
             document.getElementById(checkbox).checked = false;
             document.getElementById(comment).hidden = true;
         }
-        ekgMeasFetch(sesID)
     }
+    ekgMeasFetch(sesID)
 }
 
 
