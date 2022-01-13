@@ -24,49 +24,57 @@ function makeCheckbox(data) {
     let sesid = "";
     let marker = "";
     let note = "";
+    let klinikID = "";
 
     for (i = 0; i < data.ekgSessionList.length; i++) {
         timestart = data.ekgSessionList[i].timeStart;
         sesid = data.ekgSessionList[i].sessionID;
         marker = data.ekgSessionList[i].markers;
         note = data.ekgSessionList[i].comment;
+        klinikID = data.ekgSessionList[i].klinikID;
 
-        let Checkbox = '<span class="Check_Box">' + timestart + '<input type="checkbox" onclick="showMeasurement(' + sesid + ',' + i + ')" id="checkbox' + i + '">' + '</span>' + '<hr>';
-        let Comment = '<span class="commentbox" id="comment' + i + '" hidden>Sessionid: '+sesid+'<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea><hr></span>'
-
+        let Checkbox = '<span class="Check_Box">' + timestart + '<input type="checkbox" onclick="showMeasurement(' + sesid + ',' + i + ',' + klinikID + ')" id="checkbox' + i + '">' + '</span>' + '<hr>';
+        if (klinikID == 3) {
+            let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: '+klinikID+'      '+'Sessionid: ' + sesid + '<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea><hr></span>'
+            container2 += Comment;
+        } else {
+            let Comment = '<span class="commentbox" id="comment' + i + '" hidden>Sessionid: ' + sesid + '<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea><hr></span>'
+            container2 += Comment;
+        }
 
         container += Checkbox;
-        container2 += Comment;
     }
     document.getElementById("autoID").innerHTML = container;
     document.getElementById("autoComment").innerHTML = container2;
 }
 
-function showMeasurement(sesID, boxNR) {
-    boxnr =boxNR;
+function showMeasurement(sesID, boxNR, klinid) {
+    let boxnr = boxNR;
     sessionid = sesID;
-    for (let l = 0; l <= i; l++) {
-        let comment = "comment" + l;
-        document.getElementById(comment).hidden = false;
-        if (!l == boxNR) {
+    let comment;
+    for (let l = 0; l < i; l++) {
+        comment = "comment" + l;
+        if (l == boxnr) {
+            document.getElementById(comment).removeAttribute("hidden");
+        } else {
             let checkbox = "checkbox" + l;
-            console.log(checkbox);
             document.getElementById(checkbox).checked = false;
-            document.getElementById(comment).hidden = true;
+            document.getElementById(comment).setAttribute("hidden", "");
         }
     }
-    ekgMeasFetch(sesID)
+    ekgMeasFetch(sesID, klinid)
 }
 
 
-function ekgMeasFetch(sesID) {
+function ekgMeasFetch(sesID, klinid) {
     fetch("data/ekgSessions/ekgMeasurementsJson?" + new URLSearchParams({
-        sessionID: sesID
+        sessionID: sesID,
+        klinikID: klinid
     }), {
         headers: {
             "Authorization": localStorage.getItem("token")
         }
-    }).then(resp => resp.json()).then(data => makeChart(data.measurments));
+    }).then(resp => resp.json()).then(data => makeChart(data.measurment));
 }
 
 function makeChart(array) {
@@ -126,5 +134,5 @@ function updateEkgSession() {
 
 window.onload = function () {
     cprSearch()
-    document.getElementById("cpr").value=sessionStorage.getItem("user");
+    document.getElementById("cpr").value = sessionStorage.getItem("user");
 }

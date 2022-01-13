@@ -3,6 +3,7 @@ package model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 @XmlRootElement(name="sessions")
@@ -14,7 +15,7 @@ public class ekgSession {
     private String timeStart;
     private List<String> markers;
     private String comment;
-    private int klinikID;
+    @XmlTransient private int klinikID;
 
     @Override
     public String toString() {

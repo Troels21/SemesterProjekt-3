@@ -96,7 +96,6 @@ public class EkgService {
         }
         return null;
     }else if (!user.isDoctor()) {
-
             return new Gson().toJson(EkgSql.getEkgSql().getMeasurements(sessionID));
         }
         throw new WebApplicationException("You dont have rights", 401);
