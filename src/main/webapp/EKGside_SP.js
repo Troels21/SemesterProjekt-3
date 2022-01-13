@@ -39,10 +39,10 @@ function makeCheckbox(data) {
 
         let Checkbox = '<span class="Check_Box">' + timestart + '<input type="checkbox" onclick="showMeasurement(' + sesid + ',' + i + ',' + klinikID + ')" id="checkbox' + i + '">' + '</span>' + '<hr>';
         if (klinikID == 3) {
-            let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: ' + klinikID +'      '+ 'Sessionid: ' + sesid + '<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '">' + note + '</textarea><hr></span>'
+            let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: ' + klinikID + ' <br>     ' + 'Sessionid: ' + sesid + '<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '">' + note + '</textarea><hr></span>'
             container2 += Comment;
         } else {
-            let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: ' + klinikID + '      ' + '+Sessionid: ' + sesid + '<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea><hr></span>'
+            let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: ' + klinikID + ' <br>   ' + '+Sessionid: ' + sesid + '<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea><hr></span>'
             container2 += Comment;
         }
 
@@ -83,9 +83,6 @@ function ekgMeasFetch(sesID, klinID) {
 }
 
 function makeChart(array) {
-    console.log(array)
-    console.log(JSON.stringify(array));
-
     let label = [0];
     for (let i = 1; i < array.length; i++) {
         label.push(i);
@@ -105,12 +102,12 @@ let data = {
                 label: "ekg",
                 backgroundColor: 'rgb(0, 0, 0)',
                 borderColor: 'rgb(255, 0, 0)',
-                color: 'rgb(0,0,0)',
+                color: 'rgb(255,0,0)',
 
                 data: [],
                 tension: 1,
-                pointRadius: 1.5,
-                pointHoverRadius: 1
+                pointRadius: 0.5,
+                pointHoverRadius: 0.5
             }
         ]
 };

@@ -39,8 +39,11 @@ function udfyldskema(data) {
         let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
         let Notat = '<span class="autonote">' + note + '</span>';
         let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox' + counter + '" name="' + aftaleID + '">' + '</span><hr>';
-
-        container += Tider + CPR + Notat + Checkbox;
+        if (klinikID == 3) {
+            container += Tider + CPR + Notat + Checkbox;
+        } else {
+            container += Tider + CPR + Notat;
+        }
     }
 
     document.getElementById("autotider").innerHTML = container;
@@ -269,7 +272,7 @@ function noWeekend() {
 
 function showTime() {
     var date = new Date();
-    let dato = `${date.getUTCDate()}/${date.getUTCMonth()+1}/${date.getUTCFullYear()}`
+    let dato = `${date.getUTCDate()}/${date.getUTCMonth() + 1}/${date.getUTCFullYear()}`
     var time = date.getHours();
     var minut = date.getMinutes();
 
@@ -286,7 +289,7 @@ function refresh() {
     hentAftaleFecth(fromfrom, tiltil)
 }
 
-document.getElementById("brugernavn").innerText = "User: "+ sessionStorage.getItem("user");
+document.getElementById("brugernavn").innerText = "User: " + sessionStorage.getItem("user");
 
 function logud() {
     sessionStorage.setItem("user", "");
