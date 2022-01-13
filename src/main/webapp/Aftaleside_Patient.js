@@ -1,17 +1,11 @@
 let tok = localStorage.getItem("token");
 if (!tok) {
-    window.location.href = "LoginSide.html"
+    window.location.href = "Loginside.html"
 }
 let counter;
 
-function hentAftaleFecth(from, to) {
-    let fra = from;
-    let til = to;
-    fetch("data/aftaler/aftalerSQL?" + new URLSearchParams({
-        from: fra,
-        to: til,
-
-    }), {
+function hentAftaleFecth() {
+    fetch("data/aftaler/aftalerSQL?", {
         headers: {
             "Authorization": localStorage.getItem("token")
         }
@@ -27,8 +21,8 @@ function udfyldskema(data) {
     let note = "";
 
     for (counter = 0; counter < data.aftaleListe.length; counter++) {
-        timestart = data.aftaleListe[counter].timeStart.substring(11, 16) + "\t-\t";
-        timeend = data.aftaleListe[counter].timeEnd.substring(11, 16)
+        timestart = data.aftaleListe[counter].timeStart + "\t-\t";
+        timeend = data.aftaleListe[counter].timeEnd;
         klinikId = ("klinikId: " + data.aftaleListe[counter].klinikID);
         cpr = "CPR: " + data.aftaleListe[counter].CPR + "\t";
         note = "Notat: " + data.aftaleListe[counter].notat;
@@ -37,10 +31,9 @@ function udfyldskema(data) {
 
         let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
         let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
-        let Notat = '<span class="autonote">' + note + '</span>';
-        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox' + counter + '" name="' + aftaleID + '">' + '</span><hr>';
+        let Notat = '<span class="autonote">' + note + '</span><hr>';
 
-        container += Tider + CPR + Notat + Checkbox;
+        container += Tider + CPR + Notat;
     }
 
     document.getElementById("autotider").innerHTML = container;
@@ -67,103 +60,11 @@ function deleteAftale() {
         }).then(resp => alert(resp.text)).then(refresh);
 }
 
-//Kalendar
-const months = [
-    "Januar",
-    "Febuar",
-    "Marts",
-    "April",
-    "Maj",
-    "Juni",
-    "Juli",
-    "August",
-    "September",
-    "Oktober",
-    "November",
-    "December",
-];
-let fromfrom = "";
-let tiltil = "";
-
-
-function makecalender(date) {
-    let mymonth = months[date.getMonth()];
-
-
-    const dates = document.querySelector(".dates");
-    const lastdates = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-
-    document.getElementById("actualmonth").innerText = mymonth + "    " + date.getFullYear();
-
-    const firstdayindex = date.getDay() - 1;
-
-    const prevlastdates = new Date(date.getFullYear(), date.getMonth(), 0).getDate()
-    const nextdayindex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
-    const nextdays = 7 - nextdayindex;
-
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-
-    let days = "";
-
-    for (let x = firstdayindex; x > 0; x--) {
-        days += `<div class="lastdates"  onclick="prevdate();setdates(${year},${month - 1 === 0 ? 12 : month - 1},${prevlastdates - x + 1})">${prevlastdates - x + 1}</div>`;
-    }
-
-    for (let z = 1; z <= lastdates; z++) {
-
-        days += `<div id="${year},${month},${z}" onclick="setdates(${year},${month},${z})">${z}</div>`;
-
-    }
-    for (let y = 1; y <= nextdays; y++) {
-        days += `<div class="nextdates" onclick="nextdate();setdates(${year},${month + 1 === 13 ? 1 : month + 1},${y})">${y}</div>`;
-
-    }
-    dates.innerHTML = days;
-}
-
-let date = new Date();
-makecalender(date);
-
-function nextdate() {
-    date.setMonth(date.getMonth() + 1);
-    makecalender(date);
-}
-
-function prevdate() {
-    date.setMonth(date.getMonth() - 1);
-    makecalender(date);
-
-}
-
-let i = 0;
-
-function setdates(year, month, day) {
-    fromfrom = (year + "-" + month + "-" + day);
-    tiltil = (year + "-" + month + "-" + (day + 1));
-    document.getElementById("autotiderbar").innerText = "Den  " + day + "/" + month;
-
-    //Hvis der allerede er en aktiv klasse. Dvs en dato allerede er trykket på.
-    const active = document.getElementsByClassName("active")
-    if (active.length > 0) {
-        active[0].className = ""; //Fjerner den aktive klasse.
-    }
-    //Gør klassen (den enkelte dato der bliver trykket på aktiv.
-    document.getElementById(`${year},${month},${day}`).className = "active";
-    if (i === 0) {
-        hentAftaleFecth(fromfrom, tiltil);
-        setInterval(function () {
-        }, 10000);
-        i++;
-    } else {
-        hentAftaleFecth(fromfrom, tiltil);
-    }
-}
-
 //Pop-up journal
 function formfetch() {
     fetch("data/aftaler/aftalerSQL?" + new URLSearchParams({
         cpr: document.getElementById("cpr").value,
+        //name: document.getElementById("navn").value,
         timestart: document.getElementById("timeStart").value,
         timeend: document.getElementById("timeEnd").value,
         note: document.getElementById("textarea").value
@@ -178,13 +79,13 @@ function formfetch() {
         } else {
             throw Error(await resp.text());
         }
-    }).then(refresh).catch(Error => alert(Error));
-
-
+    }).then(refresh).catch(Error => alert(Error))
 }
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
+    document.getElementById("cpr").value = sessionStorage.getItem("user");
+
 }
 
 function closeForm() {
@@ -267,6 +168,15 @@ function noWeekend() {
     }
 }
 
+function refresh() {
+    hentAftaleFecth()
+}
+
+function logud() {
+    sessionStorage.setItem("user", "");
+    window.location.replace("Loginside.html");
+}
+
 function showTime() {
     var date = new Date();
     let dato = `${date.getUTCDate()}/${date.getUTCMonth()+1}/${date.getUTCFullYear()}`
@@ -282,17 +192,8 @@ function showTime() {
     setTimeout(showTime, 10000,); //Tiden kan ændres, hvis vi er begrænset på processernes kapicitet
 }
 
-function refresh() {
-    hentAftaleFecth(fromfrom, tiltil)
-}
-
-document.getElementById("brugernavn").innerText = "User: "+ sessionStorage.getItem("user");
-
-function logud() {
-    sessionStorage.setItem("user", "");
-    window.location.replace("LoginSide.html");
-}
-
 window.onload = function () {
-    showTime()
+    refresh();
+    document.getElementById("brugernavn").innerText = "CPR: "+sessionStorage.getItem("user");
+    showTime();
 }
