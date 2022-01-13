@@ -21,6 +21,7 @@ function makeCheckbox(data) {
     let timestart = "";
     let container = "";
     let container2 = "";
+    let container3 = "";
     let sesid = "";
     let marker = "";
     let note = "";
@@ -34,28 +35,34 @@ function makeCheckbox(data) {
         klinikID = data.ekgSessionList[i].klinikID;
 
         let Checkbox = '<span class="Check_Box">' + timestart + '<input type="checkbox" onclick="showMeasurement(' + sesid + ',' + i + ',' + klinikID + ')" id="checkbox' + i + '">' + '</span>' + '<hr>';
-        let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: ' + klinikID + '  <br>    ' + 'Sessionid: ' + sesid + '<br> Marker:<br><p id="marker' + i + '">' + marker + '</p><br> Note:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea><hr></span>'
+        let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: ' + klinikID + '  ---    ' + 'Sessionid: ' + sesid + '<br> Marker:<p id="marker' + i + '">' + marker + '</p> </span>'
+        let commentboks = '<span class="commentbox" id="commentbox' + i + '" hidden>Comment:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea></span>'
         container2 += Comment;
-
+        container3 += commentboks
 
         container += Checkbox;
     }
     document.getElementById("autoID").innerHTML = container;
     document.getElementById("autoComment").innerHTML = container2;
+    document.getElementById("autonote").innerHTML = container3;
 }
 
 function showMeasurement(sesID, boxNR, klinid) {
     let boxnr = boxNR;
     sessionid = sesID;
     let comment;
+    let commentbox;
     for (let l = 0; l < i; l++) {
         comment = "comment" + l;
+        commentbox = "commentbox"+l;
         if (l == boxnr) {
             document.getElementById(comment).removeAttribute("hidden");
+            document.getElementById(commentbox).removeAttribute("hidden");
         } else {
             let checkbox = "checkbox" + l;
             document.getElementById(checkbox).checked = false;
             document.getElementById(comment).setAttribute("hidden", "");
+            document.getElementById(commentbox).setAttribute("hidden","");
         }
     }
     ekgMeasFetch(sesID, klinid)

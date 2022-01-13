@@ -6,9 +6,9 @@
 
 /* baggrund. tog bare et random billede kan altid ændres */
 body {
-    background: url('IMG/dna-3539309_1920.jpg') no-repeat center;
+    background-color: #90D7FF;
     background-size: cover;
-    font-family: "Times New Roman", serif;
+    font-family: "Georgia", serif;
 }
 
 /* Centrer boksen, som den er i midten */
@@ -27,9 +27,9 @@ body {
     max-width: 380px;
     height: 60%;
     padding: 80px 40px 40px;
-    background: rgba(0,0,0,0.8); /* baggrunds farven*/
+    background: ghostwhite; /* baggrunds farven*/
     border-radius: 10px;
-    color: white;
+    color: black;
 }
 
 /* overskrift bliver centreret */
@@ -37,7 +37,7 @@ body {
     text-align: center;
     letter-spacing: 1px;
     margin-bottom: 2rem;
-    color: white;
+    color: black;
 }
 .form .input-gruppe {
     position: relative;
@@ -51,7 +51,7 @@ body {
     letter-spacing: 1px;
     margin-bottom: 30px;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid black ;
     outline: none;
     background-color: transparent;
     color: inherit;
@@ -72,17 +72,16 @@ body {
 .form .input-gruppe input:focus + label,
 .form .input-gruppe input:valid + label {
     transform: translateY(-18px);
-    color: white;
+    color: black;
     font-size: .8rem;
 }
 
 /* rest og login knappen */
 .knap {
-    font-family: "Times New Roman", serif;
     display:inline-block;
     outline: none;
-    border: 1px solid rgb(11,71,144);
-    background-color: rgb(11,71,144);
+    border: 1px solid black;
+    background-color: black;
     color: white;
     font-size: 1rem;
     text-transform: uppercase;
@@ -92,12 +91,12 @@ body {
     cursor: pointer;
 }
 
-.knap:hover {background-color: dodgerblue;}
+.knap:hover { background-color: #1c1c1c;}
 
 .knap:active {
-    background-color: dodgerblue;;
+    background-color: #202120;
     box-shadow: 0 5px #666;
-    transform: translateY(4px);
+    transform: translateY(0.5px);
 }
 
 /* øje icon */

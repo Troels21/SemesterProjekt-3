@@ -92,8 +92,9 @@ public class ekgController {
 
     public ekgSessionList getAllSessions(String CPR) throws SQLException {
         ekgSessionList ekgses = EkgSql.getEkgSql().getEkgSessions(CPR);
+
         /*
-        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=" + CPR,"hemmligLogin");
+        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=" + CPR,"hemmeliglogin");
         for (int i = 0; i < grp1.getJSONObject("sessions").getJSONArray("ekgSession").length(); i++) {
             ekgSession ekgSession = new Gson().fromJson(grp1.getJSONObject("sessions").getJSONArray("ekgSession").get(i).toString(), ekgSession.class);
             ekgSession.setKlinikID(1);
@@ -130,7 +131,7 @@ public class ekgController {
                 return ekgmeas1;
             }/*
             case 1: {
-                JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions/measurements?sessionID=" + sessionID,hemmligLogin);
+                JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/measurements?sessionID=" + sessionID,"hemmeliglogin");
                 for (int i = 0; i < grp1.getJSONObject("measurements").getJSONArray("measurment").length(); i++) {
                     ekgmeas.addMeasurments(grp1.getJSONObject("measurements").getJSONArray("measurment").getDouble(i));
                 }

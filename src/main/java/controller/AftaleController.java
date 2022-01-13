@@ -72,8 +72,8 @@ public class AftaleController {
 
     public AftaleListe getAllGroupsAftaleFromTo(String from, String to) throws SQLException {
         AftaleListe aftaleListe = AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to);
-
-        /*JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler");
+        /*
+        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler","hemmeliglogin");
         for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
             String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
             if (placeholder.startsWith(from)) {
@@ -110,7 +110,7 @@ public class AftaleController {
         AftaleListe aftaleListe = cprSearch(CPR);
 
         /*
-        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR);
+        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR,"hemmeliglogin");
         for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
             System.out.println(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i));
             aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
