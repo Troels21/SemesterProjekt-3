@@ -12,7 +12,7 @@ body {
     color: black;
     height: 30px;
     position: absolute;
-    right: 10px;
+    right: 20px;
     border-radius: 5px;
 }
 
@@ -32,7 +32,7 @@ body {
     color: black;
     height: 30px;
     position: absolute;
-    right: 10px;
+    right: 20px;
     top: 80px;
     border-radius: 5px;
 }
@@ -48,19 +48,20 @@ body {
 }
 
 #canvas{
-    left: 250px;
+    left: 195px;
     background-color: ghostwhite;
-    height: auto;
     position: absolute;
     border:1px solid #000000;
     border-radius: 5px;
+    top: 170px;
+    width:1300px;
+    height:400px;
+
 
 }
 #myCanvas {
     border:1px solid #000000;
     border-radius: 5px;
-    width:1200px;
-    height:600px;
 }
 
 /* Dropdown Button */
@@ -90,12 +91,10 @@ body {
     position: absolute;
     border:1px solid #000000;
     border-radius: 5px;
+    top: 170px;
+
 }
 
-#autoComment,#autoID,#SessionID{
-     padding: 5px;
-    padding-top: 8px;
-}
 
 #cpr {
     min-width: 150px;
@@ -106,15 +105,28 @@ body {
 
 #myChart{
     background-color: ghostwhite;
+    width: 1350px;
 }
 
 .comments{
-    right: 10px;
+    right: 440px;
     background-color: ghostwhite;
     width: 250px;
-    height: 600px;
+    height: 150px;
     position: absolute;
     border:1px solid #000000;
     border-radius: 5px;
+    top: 10px;
+}
+
+.note{
+    right: 180px;
+    background-color: ghostwhite;
+    width: 250px;
+    height: 150px;
+    position: absolute;
+    border:1px solid #000000;
+    border-radius: 5px;
+    top: 10px;
 }
 
