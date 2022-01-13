@@ -52,9 +52,9 @@ async function giveToken(res,user) {
         localStorage.setItem("user", user);
         //Viderestil til den rigtige side!
         if (user.match(/^\d{10}$/)) {
-            window.location.href = "FrontEnd_Patient.html"
+            window.location.href = "Aftaleside_Patient.html"
         } else {
-            window.location.href = "FrontEnd_SP.html"
+            window.location.href = "Aftaleside_SP.html"
         }
     } else {
         alert("Unable to login, check password")

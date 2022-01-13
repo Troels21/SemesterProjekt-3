@@ -13,7 +13,7 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("LoginSide.html");
+        resp.sendRedirect("Loginside.html");
     }
 
     @Override
