@@ -19,6 +19,7 @@ function udfyldskema(data) {
     let cpr = "";
     let container = "";
     let note = "";
+    console.log(JSON.stringify(data));
 
     for (counter = 0; counter < data.aftaleListe.length; counter++) {
         timestart = data.aftaleListe[counter].timeStart + "\t-\t";

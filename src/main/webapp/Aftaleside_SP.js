@@ -29,17 +29,18 @@ function udfyldskema(data) {
     for (counter = 0; counter < data.aftaleListe.length; counter++) {
         timestart = data.aftaleListe[counter].timeStart.substring(11, 16) + "\t-\t";
         timeend = data.aftaleListe[counter].timeEnd.substring(11, 16)
-        klinikId = ("klinikId: " + data.aftaleListe[counter].klinikID);
+        klinikId = data.aftaleListe[counter].klinikID;
         cpr = "CPR: " + data.aftaleListe[counter].CPR + "\t";
         note = "Notat: " + data.aftaleListe[counter].notat;
         aftaleID = data.aftaleListe[counter].ID;
 
-
         let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
-        let CPR = '<span class="autoname">' + cpr + klinikId + '</span>';
+        let CPR = '<span class="autoname">' + cpr + 'klinikId: ' +klinikId + '</span>';
         let Notat = '<span class="autonote">' + note + '</span>';
         let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox' + counter + '" name="' + aftaleID + '">' + '</span><hr>';
-        if (klinikID == 3) {
+        console.log(klinikId);
+
+        if (klinikId == 3) {
             container += Tider + CPR + Notat + Checkbox;
         } else {
             container += Tider + CPR + Notat;
