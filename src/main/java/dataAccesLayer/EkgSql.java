@@ -58,6 +58,7 @@ public class EkgSql {
                 ekgses.setCpr(rs.getString(7));
                 ekgses.setSessionID(rs.getInt(2));
                 ekgses.setMarkers(Arrays.asList(markerArray));
+                ekgses.setKlinikID(3);
                 ekgsessionList.addEkgSession(ekgses);
             }
             return ekgsessionList;

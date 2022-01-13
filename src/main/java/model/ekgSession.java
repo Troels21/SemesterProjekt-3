@@ -14,6 +14,7 @@ public class ekgSession {
     private String timeStart;
     private List<String> markers;
     private String comment;
+    private int klinikID;
 
     @Override
     public String toString() {
@@ -21,9 +22,18 @@ public class ekgSession {
                 "sessionID=" + sessionID +
                 ", cpr='" + cpr + '\'' +
                 ", timeStart='" + timeStart + '\'' +
-                ", markers=" + markers.toString() +
+                ", markers=" + markers +
                 ", comment='" + comment + '\'' +
+                ", klinikID=" + klinikID +
                 '}';
+    }
+
+    public int getKlinikID() {
+        return klinikID;
+    }
+
+    public void setKlinikID(int klinikID) {
+        this.klinikID = klinikID;
     }
 
     public int getSessionID() {

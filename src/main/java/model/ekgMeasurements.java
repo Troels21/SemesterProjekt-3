@@ -13,17 +13,21 @@ public class ekgMeasurements {
     @Override
     public String toString() {
         return "ekgMeasurements{" +
-                "measurments=" + measurments +
+                "measurment=" + measurment +
                 '}';
     }
 
-    private List<Double> measurments = new ArrayList<>();
+    private List<Double> measurment = new ArrayList<>();
 
     public List<Double> getMeasurments() {
-        return measurments;
+        return measurment;
+    }
+
+    public void setMeasurment(List<Double> measurment) {
+        this.measurment = measurment;
     }
 
     public void addMeasurments(Double mearsurement) {
-        this.measurments.add(mearsurement);
+        this.measurment.add(mearsurement);
     }
 }

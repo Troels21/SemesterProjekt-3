@@ -55,14 +55,14 @@ public class EkgService {
         if (user.isDoctor()) {
             if (cpr != null) {
                 try {
-                    return new Gson().toJson(EkgSql.getEkgSql().getEkgSessions(cpr));
+                    return new Gson().toJson(ekgController.getEkgController().getAllSessions(cpr));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }
             return null;
         }else if (!user.isDoctor()) {
-            return new Gson().toJson(EkgSql.getEkgSql().getEkgSessions(user.getUsername()));
+            return new Gson().toJson(ekgController.getEkgController().getAllSessions(user.getUsername()));
         }
         throw new WebApplicationException("You dont have rights", 401);
         }
@@ -84,12 +84,12 @@ public class EkgService {
 
     @Path("ekgMeasurementsJson")
     @GET
-    public String getMeasurementJson(@QueryParam("sessionID") Integer sessionID) throws SQLException {
+    public String getMeasurementJson(@QueryParam("sessionID") Integer sessionID, @QueryParam("klinikID") Integer klinikID) throws SQLException {
         User user = (User) context.getProperty("user");
         if (user.isDoctor()) {
         if (sessionID != null) {
             try {
-                return new Gson().toJson(EkgSql.getEkgSql().getMeasurements(sessionID));
+                return new Gson().toJson(ekgController.getEkgController().getAllEKGMeasurements(sessionID,klinikID));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
