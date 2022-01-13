@@ -1,6 +1,10 @@
+import { Chart } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 let i;
 let sessionid;
 let boxnr;
+
+Chart.register(zoomPlugin);
 
 function cprSearch() {
     let cpr = document.getElementById("cpr").value;

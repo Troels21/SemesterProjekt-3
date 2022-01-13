@@ -11,7 +11,6 @@ passlabel.addEventListener('keyup', (e) => {
     }
 })
 
-
 function togglevisibiliy() {
     const passwordInput = document.getElementById("password")
     const icon = document.getElementById("icon")
@@ -28,7 +27,7 @@ function togglevisibiliy() {
 let user = "";
 let pass = "";
 
-async function loginbt1() {
+async function loginbt(){
     // Serialiser formen til js-objekt
     //let loginform = document.getElementById("loginform");
     user = document.getElementById("username").value;
@@ -42,53 +41,37 @@ async function loginbt1() {
         password: pass,
     }, {
         method: "GET"
-    })).then(resp => giveTokenbt1(resp,user));
-
+    })).then(resp => giveToken(resp,user));
 }
 
-async function loginbt2() {
-    // Serialiser formen til js-objekt
-    //let loginform = document.getElementById("loginform");
-    user = document.getElementById("username").value;
-    pass = document.getElementById("password").value;
-    sessionStorage.setItem("user", user);
-
-
-    //Bruger fetch-API til at sende data - POST. JSON.stringify for at serialisere objekt til string.
-    fetch("data/login?" + new URLSearchParams({
-        username: user,
-        password: pass,
-    }, {
-        method: "GET"
-    })).then(resp => giveTokenbt2(resp,user));
-
-}
-
-async function giveTokenbt1(res, user) {
-    if (res.status >= 200 && res.status <= 299) {
-        let token = await res.text();
-        localStorage.setItem("token", token);
-        //For ekstra krymmel fisker vi en bruger ud af tokenen
-        localStorage.setItem("user", user);
-        //Viderestil til den rigtige side!
-        window.location.href = "FrontEnd_Patient.html"
-    } else {
-        alert("Unable to login, check password")
+async function giveToken(res,user){
+    if (user.match(/^\d{10}$/)){
+        if (res.status >= 200 && res.status <= 299) {
+            let token = await res.text();
+            localStorage.setItem("token", token);
+            //For ekstra krymmel fisker vi en bruger ud af tokenen
+            localStorage.setItem("user", user);
+            //Viderestil til den rigtige side!
+            window.location.href = "FrontEnd_Patient.html"
+        } else {
+            alert("Unable to login, check password")
+        }
+    }
+    else {
+        if (res.status >= 200 && res.status <= 299) {
+            let token = await res.text();
+            localStorage.setItem("token", token);
+            //For ekstra krymmel fisker vi en bruger ud af tokenen
+            localStorage.setItem("user", user);
+            //Viderestil til den rigtige side!
+            window.location.href = "FrontEnd_SP.html"
+        } else {
+            alert("Unable to login, check password")
+        }
     }
 }
 
-async function giveTokenbt2(res, user) {
-    if (res.status >= 200 && res.status <= 299) {
-        let token = await res.text();
-        localStorage.setItem("token", token);
-        //For ekstra krymmel fisker vi en bruger ud af tokenen
-        localStorage.setItem("user", user);
-        //Viderestil til den rigtige side!
-        window.location.href = "FrontEnd_SP.html"
-    } else {
-        alert("Unable to login, check password")
-    }
-}
+
 
 /*
 function login() {
