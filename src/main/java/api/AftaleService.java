@@ -3,8 +3,6 @@ package api;
 import com.google.gson.Gson;
 import controller.AftaleController;
 import dataAccesLayer.AftaleSQL;
-import dataAccesLayer.EkgSql;
-import dataAccesLayer.SQL;
 import exceptions.OurException;
 import model.AftaleListe;
 import model.User;
@@ -47,9 +45,9 @@ public class AftaleService {
     public String selectFromTime(@QueryParam("from") String from, @QueryParam("to") String to) throws SQLException, OurException {
         User user = (User) context.getProperty("user");
         if (user.isDoctor()) {
-            return new Gson().toJson(AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to));
+            return new Gson().toJson(AftaleController.getAftaleControllerOBJ().getAllGroupsAftaleFromTo(from,to));
         } else if (!user.isDoctor()) {
-            return new Gson().toJson(AftaleController.getAftaleControllerOBJ().cprSearch(user.getUsername()));
+            return new Gson().toJson(AftaleController.getAftaleControllerOBJ().getALLGroupsAftaleCPR(user.getUsername()));
         }
         throw new WebApplicationException("You dont have rights", 401);
     }

@@ -7,9 +7,7 @@ import model.ekgSessionList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class EkgSql {
 
@@ -74,7 +72,7 @@ public class EkgSql {
         int patID = PatientSQL.getPatientSQLobj().getPatientID(cpr);
         int sesID = getSessionID(patID);
         try {
-            String sql = "INSERT INTO ekg(maling,sessionID,patientID) values("+measurement[0] + "," + sesID + "," + patID + ")";
+            String sql = "INSERT INTO ekg(maling,sessionID,patientID) values(" + measurement[0] + "," + sesID + "," + patID + ")";
 
             for (int i = 1; i < measurement.length; i++) {
                 sql = sql + ",(" + measurement[i] + "," + sesID + "," + patID + ")";
@@ -144,15 +142,15 @@ public class EkgSql {
                 "SET comments = ?\n" +
                 "WHERE sessionID = ? ;");
 
-                try{
-                    pp.setString(1,comments);
-                    pp.setString(2,sesID);
+        try {
+            pp.setString(1, comments);
+            pp.setString(2, sesID);
 
-                    pp.execute();
-                    SQL.getSqlOBJ().removeConnectionSQL();
+            pp.execute();
+            SQL.getSqlOBJ().removeConnectionSQL();
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

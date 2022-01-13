@@ -1,11 +1,13 @@
 package controller;
 
 
+import com.google.gson.Gson;
 import dataAccesLayer.AftaleSQL;
-import dataAccesLayer.SQL;
+import dataAccesLayer.apiDAO;
 import exceptions.OurException;
 import model.Aftale;
 import model.AftaleListe;
+import org.json.JSONObject;
 
 
 import java.sql.SQLException;
@@ -24,7 +26,6 @@ public class AftaleController {
     // bolsk værdi til kontrol af cpr'er
     public boolean cprCheck(String name) {
         try {
-            double test = Double.parseDouble(name);
             return name.length() == 10;
         } catch (Exception e) {
             return false;
@@ -38,7 +39,7 @@ public class AftaleController {
         if (cprCheck(cpr)) {
             return AftaleSQL.getAftaleSQLObj().cprSearch(cpr);
         }
-       return new AftaleListe();
+        return new AftaleListe();
     }
 
 
@@ -66,9 +67,74 @@ public class AftaleController {
             ex.setMessage("CPR skal være 10 cifre, yyyymmddxxxx");
             throw ex;
         }
-
-
     }
 
+
+    public AftaleListe getAllGroupsAftaleFromTo(String from, String to) throws SQLException {
+        AftaleListe aftaleListe = AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to);
+
+        /*JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler");
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+            String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            if (placeholder.startsWith(from)) {
+                aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
+            }
+        }
+
+        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler");
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+            String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            if (placeholder.startsWith(from)) {
+                aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
+            }
+        }
+        JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler");
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+            String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            if (placeholder.startsWith(from)) {
+                aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
+            }
+        }
+        JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler");
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+            String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            if (placeholder.startsWith(from)) {
+                aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
+            }
+        }*/
+
+        return aftaleListe;
+    }
+
+    public AftaleListe getALLGroupsAftaleCPR(String CPR) throws SQLException, OurException {
+        AftaleListe aftaleListe = cprSearch(CPR);
+
+        /*
+        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR);
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+            System.out.println(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i));
+            aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
+        }
+
+        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR);
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+
+            aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
+        }
+
+        JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR);
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+
+            aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
+        }
+
+        JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR);
+        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+
+            aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
+        }*/
+
+        return aftaleListe;
+    }
 
 }
