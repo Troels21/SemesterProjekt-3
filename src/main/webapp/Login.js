@@ -44,30 +44,20 @@ async function loginbt(){
     })).then(resp => giveToken(resp,user));
 }
 
-async function giveToken(res,user){
-    if (user.match(/^\d{10}$/)){
-        if (res.status >= 200 && res.status <= 299) {
-            let token = await res.text();
-            localStorage.setItem("token", token);
-            //For ekstra krymmel fisker vi en bruger ud af tokenen
-            localStorage.setItem("user", user);
-            //Viderestil til den rigtige side!
+async function giveToken(res,user) {
+    if (res.status >= 200 && res.status <= 299) {
+        let token = await res.text();
+        localStorage.setItem("token", token);
+        //For ekstra krymmel fisker vi en bruger ud af tokenen
+        localStorage.setItem("user", user);
+        //Viderestil til den rigtige side!
+        if (user.match(/^\d{10}$/)) {
             window.location.href = "FrontEnd_Patient.html"
         } else {
-            alert("Unable to login, check password")
-        }
-    }
-    else {
-        if (res.status >= 200 && res.status <= 299) {
-            let token = await res.text();
-            localStorage.setItem("token", token);
-            //For ekstra krymmel fisker vi en bruger ud af tokenen
-            localStorage.setItem("user", user);
-            //Viderestil til den rigtige side!
             window.location.href = "FrontEnd_SP.html"
-        } else {
-            alert("Unable to login, check password")
         }
+    } else {
+        alert("Unable to login, check password")
     }
 }
 
