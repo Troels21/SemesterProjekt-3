@@ -1,6 +1,6 @@
 let tok = localStorage.getItem("token");
 if (!tok) {
-    window.location.href = "Loginside.html"
+    window.location.href = "index.html"
 }
 let counter;
 
@@ -175,7 +175,7 @@ function refresh() {
 
 function logud() {
     sessionStorage.setItem("user", "");
-    window.location.replace("Loginside.html");
+    window.location.replace("index.html");
 }
 
 function showTime() {

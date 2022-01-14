@@ -19,7 +19,7 @@ public class SQL {
 
     private final String url = "jdbc:mysql://130.225.170.248:3306/listeDB";
     private final String DatabaseUser = "testbruger1";
-    private final String DatabasePassword =System.getenv("SqlKode"); //tomcat system startups
+    private final String DatabasePassword ="LodretMaleriPuppe";//System.getenv("SqlKode");//""; //tomcat system startups
 
     public Connection myConn;
     public Statement myStatement;
