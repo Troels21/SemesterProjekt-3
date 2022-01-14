@@ -88,7 +88,7 @@ function makeChart(array) {
     }
 
     myChart.data.labels = label;
-    myChart.data.datasets[0].data = array; // Would update the first dataset's value of 'March' to be 50
+    myChart.data.datasets[0].data = array;
     myChart.update(); //
 
 }
