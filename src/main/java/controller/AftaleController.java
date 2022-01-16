@@ -9,8 +9,10 @@ import model.Aftale;
 import model.AftaleListe;
 import org.json.JSONObject;
 
-
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AftaleController {
 
@@ -82,10 +84,22 @@ public class AftaleController {
         }
 
         */
-        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler",("Bearer "+System.getenv("ApiKeyGrp2")));
+        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp2"));
         for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
-            String placeholder = grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
-            if (placeholder.startsWith(from)) {
+            String dato = grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            String[] placeholder1=dato.split(" ");
+            String[] placeholder=placeholder1[0].split("-");
+            int month = Integer.parseInt(placeholder[1]);
+            int day = Integer.parseInt(placeholder[2]);
+            if (month<10){
+                placeholder[1]=placeholder[1].substring(1);
+            }
+            if (day<10){
+                placeholder[2]=placeholder[2].substring(1);
+            }
+            dato = placeholder[0]+"-"+placeholder[1]+"-"+placeholder[2];
+
+            if (dato.startsWith(from)) {
                 aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
             }
         }
@@ -120,7 +134,7 @@ public class AftaleController {
         */
 
 
-        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR,("Bearer "+System.getenv("ApiKeyGrp2")));
+        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler?cpr=" + CPR,System.getenv("ApiKeyGrp2"));
         for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
 
             aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));

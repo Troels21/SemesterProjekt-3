@@ -7,6 +7,7 @@ let counter;
 function hentAftaleFecth(from, to) {
     let fra = from;
     let til = to;
+
     fetch("data/aftaler/aftalerSQL?" + new URLSearchParams({
         from: fra,
         to: til,
@@ -34,15 +35,18 @@ function udfyldskema(data) {
         note = "Notat: " + data.aftaleListe[counter].notat;
         aftaleID = data.aftaleListe[counter].ID;
 
-        let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
-        let CPR = '<span class="autoname">' + cpr + 'klinikId: ' +klinikId + '</span>';
-        let Notat = '<span class="autonote">' + note + '</span>';
-        let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox' + counter + '" name="' + aftaleID + '">' + '</span><hr>';
-        console.log(klinikId);
+
 
         if (klinikId == 3) {
+            let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
+            let CPR = '<span class="autoname">' + cpr + 'klinikId: ' +klinikId + '</span>';
+            let Notat = '<span class="autonote">' + note + '</span>';
+            let Checkbox = '<span class="R_Button">' + '<input type="checkbox" id="checkbox' + counter + '" name="' + aftaleID + '">' + '</span><hr>';
             container += Tider + CPR + Notat + Checkbox;
         } else {
+            let Tider = '<span class="autotider">' + timestart + timeend + '</span>';
+            let CPR = '<span class="autoname">' + cpr + 'klinikId: ' +klinikId + '</span>';
+            let Notat = '<span class="autonote">' + note + '</span><hr>';
             container += Tider + CPR + Notat;
         }
     }
@@ -143,6 +147,7 @@ function prevdate() {
 let i = 0;
 
 function setdates(year, month, day) {
+
     fromfrom = (year + "-" + month + "-" + day);
     tiltil = (year + "-" + month + "-" + (day + 1));
     document.getElementById("autotiderbar").innerText = "Den  " + day + "/" + month;
