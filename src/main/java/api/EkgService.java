@@ -1,10 +1,8 @@
 package api;
 
 import com.google.gson.Gson;
-import controller.AftaleController;
 import controller.ekgController;
 import dataAccesLayer.EkgSql;
-import dataAccesLayer.PatientSQL;
 import model.User;
 import model.ekgMeasurements;
 import model.ekgSessionList;
