@@ -75,7 +75,7 @@ public class ekgController {
         double bpm = (30000 / thisPersonAverageDistance);
 
         for (int i = 0; i < distance.size(); i++) {
-            if ((normalPersonAverageDistance - distance.get(i)) < -500 || (normalPersonAverageDistance - distance.get(i)) >= 500) {
+            if ((normalPersonAverageDistance - distance.get(i)) < -500 || (normalPersonAverageDistance - distance.get(i)) >= 450) {
                 markers = (markers + markerToDistance.get(i) + ",");
             }
         }
