@@ -83,7 +83,7 @@ public class AftaleController {
             }
         }
 
-        */
+        /*
         JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp2"));
         for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
             String dato = grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
@@ -102,7 +102,7 @@ public class AftaleController {
             if (dato.startsWith(from)) {
                 aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
             }
-        }
+        }*/
         /*
         JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler",("Bearer "+System.getenv("ApiKeyGrp4")));
         for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
@@ -131,7 +131,7 @@ public class AftaleController {
             System.out.println(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i));
             aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
         }
-        */
+
 
 
         JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler?cpr=" + CPR,System.getenv("ApiKeyGrp2"));

@@ -72,7 +72,7 @@ function deleteAftale() {
             headers: {
                 "Authorization": localStorage.getItem("token")
             }
-        }).then(resp => alert(resp.text)).then(refresh);
+        }).then(resp => alert("OK")).then(refresh);
 }
 
 //Kalendar

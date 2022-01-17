@@ -2,6 +2,7 @@
 //import { zoomPlugin } from 'chartjs-plugin-zoom';
 let i;
 let sessionid;
+let boxnr;
 
 //Chart.register(zoomPlugin);
 
@@ -55,18 +56,18 @@ function makeCheckbox(data) {
     }
     document.getElementById("autoID").innerHTML = container;
     document.getElementById("autoComment").innerHTML = container2;
-    document.getElementById("autonote").innerHTML= container3;
+    document.getElementById("autonote").innerHTML = container3;
 
 }
 
 function showMeasurement(sesID, boxNR, klinid) {
-    let boxnr = boxNR;
+    boxnr = boxNR;
     sessionid = sesID;
     let comment;
     let commentbox;
     for (let l = 0; l < i; l++) {
         comment = "comment" + l;
-        commentbox = "commentbox"+l;
+        commentbox = "commentbox" + l;
         if (l == boxnr) {
             document.getElementById(comment).removeAttribute("hidden");
             document.getElementById(commentbox).removeAttribute("hidden");
@@ -74,7 +75,7 @@ function showMeasurement(sesID, boxNR, klinid) {
             let checkbox = "checkbox" + l;
             document.getElementById(checkbox).checked = false;
             document.getElementById(comment).setAttribute("hidden", "");
-            document.getElementById(commentbox).setAttribute("hidden","");
+            document.getElementById(commentbox).setAttribute("hidden", "");
         }
     }
     ekgMeasFetch(sesID, klinid)
@@ -101,7 +102,6 @@ function makeChart(array) {
     myChart.data.labels = label;
     myChart.data.datasets[0].data = array; // Would update the first dataset's value of 'March' to be 50
     myChart.update(); //
-
 }
 
 let data = {
@@ -126,13 +126,27 @@ let data = {
 let config = {
     type: 'line',
     data: data,
-    option: {}
-}
+    options: {
+        plugins: {
+            zoom: {
+                pan: {
+                    enabled: true,
+                    mode: 'xy'
+                },
+                zoom: {
+                    enabled: true,
+                    mode: 'xy'
+                }
+            },
+        }
+    }
+};
 
 let myChart = new Chart(
     document.getElementById('myChart'),
     config
 );
+myChart.register(zoomPlugin);
 
 function updateEkgSession() {
     let endpoint = 'data/ekgSessions/ekgSessionJson/' + sessionid + '/comment';
@@ -143,5 +157,5 @@ function updateEkgSession() {
             headers: {
                 "Authorization": localStorage.getItem("token")
             }
-        }).then(res => res.statusText).then(res => alert(res));
+        }).then(res => alert("OK"));
 }

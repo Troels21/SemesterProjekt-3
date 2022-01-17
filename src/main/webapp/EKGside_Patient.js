@@ -36,15 +36,12 @@ function makeCheckbox(data) {
 
         let Checkbox = '<span class="Check_Box">' + timestart + '<input type="checkbox" onclick="showMeasurement(' + sesid + ',' + i + ',' + klinikID + ')" id="checkbox' + i + '">' + '</span>' + '<hr>';
         let Comment = '<span class="commentbox" id="comment' + i + '" hidden>KlinikID: ' + klinikID + '  ---    ' + 'Sessionid: ' + sesid + '<br> Marker:<p id="marker' + i + '">' + marker + '</p> </span>'
-        let commentboks = '<span class="commentbox" id="commentbox' + i + '" hidden>Comment:<br><textarea style="width: 225px" id="textarea' + i + '" disabled>' + note + '</textarea></span>'
         container2 += Comment;
-        container3 += commentboks
 
         container += Checkbox;
     }
     document.getElementById("autoID").innerHTML = container;
     document.getElementById("autoComment").innerHTML = container2;
-    document.getElementById("autonote").innerHTML = container3;
 }
 
 function showMeasurement(sesID, boxNR, klinid) {
