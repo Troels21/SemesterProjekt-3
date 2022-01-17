@@ -27,7 +27,6 @@ sampletop= 10000
 t = np.arange(0,sampletop*Ts,Ts)
 
 rec ='rec_19'
-cpr = "7777777777"
 
 # Indlæs EKG signalet (råt, ufiltreret) samt tilhørende info
 signals, info = wfdb.rdsamp(rec, channels=[0, 1], 
@@ -81,4 +80,4 @@ plt.ylim([-0.2,0.6])
 plt.show()
 
 
-PPR.postFiltEKG(cpr, filtret2.tolist())
+PPR.postFiltEKG("7777777777", filtret2.tolist())

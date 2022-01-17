@@ -13,7 +13,7 @@ def postFiltEKG(cpr, filteredarray):
     
      #OBBBBSSSSS     Tomcat Serveren skal PT være tændt.
 
-    endpoint = "http://localhost:8080/SemesterProjekt_3_war/data/ekgSessions/measurements"
+    endpoint = "https://ekg3.diplomportal.dk/data/ekgSessions/measurements"
 
 
     dsparray = filteredarray #Dsp plot array

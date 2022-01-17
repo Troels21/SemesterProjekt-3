@@ -42,7 +42,6 @@ public class EkgService {
     @POST
     public String pythonDataReceive(String data, @Context HttpHeaders cprHeader) {
         ekgController.getEkgController().validate(data, cprHeader.getRequestHeader("Identifier").get(0));
-
         return "jeg fik : " + data;
     }
 
