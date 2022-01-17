@@ -80,7 +80,7 @@ function formfetch() {
         } else {
             throw Error(await resp.text());
         }
-    }).then(refresh).catch(Error => alert(Error))
+    }).then(refresh).catch(Error => alert("Aftalen kunne ikke oprettes i systemet."))
 }
 
 function openForm() {

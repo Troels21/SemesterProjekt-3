@@ -144,7 +144,7 @@ function updateEkgSession() {
             headers: {
                 "Authorization": localStorage.getItem("token")
             }
-        }).then(res => alert("OK"));
+        }).then(res => alert("Kommentaren til EKG-sessionen er hermed blevet opdateret i systemet."));
 }
 
 function updateChart(range){
