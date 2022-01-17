@@ -57,7 +57,7 @@ async function giveToken(res,user) {
             window.location.href = "Aftaleside_SP.html"
         }
     } else {
-        alert("Unable to login, check password")
+        alert("Adgang nægtet. \nTjek venligst deres indtastede loginoplysningene og forsøg igen.")
     }
 }
 
