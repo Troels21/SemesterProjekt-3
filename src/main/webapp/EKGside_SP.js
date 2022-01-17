@@ -95,8 +95,9 @@ function ekgMeasFetch(sesID, klinID) {
 
 function makeChart(array) {
     let label = [0];
-    for (let i = 1; i < array.length; i++) {
-        label.push(i);
+
+    for (let i=1;i<array.length;i++){
+        label.push(i)
     }
 
     myChart.data.labels = label;
@@ -126,27 +127,13 @@ let data = {
 let config = {
     type: 'line',
     data: data,
-    options: {
-        plugins: {
-            zoom: {
-                pan: {
-                    enabled: true,
-                    mode: 'xy'
-                },
-                zoom: {
-                    enabled: true,
-                    mode: 'xy'
-                }
-            },
-        }
-    }
+    options: {}
 };
 
 let myChart = new Chart(
     document.getElementById('myChart'),
     config
 );
-myChart.register(zoomPlugin);
 
 function updateEkgSession() {
     let endpoint = 'data/ekgSessions/ekgSessionJson/' + sessionid + '/comment';
@@ -158,4 +145,17 @@ function updateEkgSession() {
                 "Authorization": localStorage.getItem("token")
             }
         }).then(res => alert("OK"));
+}
+
+function updateChart(range){
+    console.log(range.value);
+    let label = [0];
+
+    for (let i=1;i<range.value ;i++){
+        label.push(i)
+    }
+
+    console.log(label);
+    myChart.data.labels = label;
+    myChart.update();
 }

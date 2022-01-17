@@ -25,13 +25,14 @@
 </div>
 <div class="comments">
 
-    <label>Kommentarer</label>
+    <label>Markers</label>
     <hr>
     <div id="autoComment"></div>
 </div>
 
 <div id="canvas">
     <canvas id="myChart" width="1250px" height="600px">    </canvas>
+    <input  onchange="updateChart(this)" on type="range" min="2000" max="10000" value="10000" class="slider">
 </div>
 
 

@@ -48,18 +48,14 @@ function showMeasurement(sesID, boxNR, klinid) {
     let boxnr = boxNR;
     sessionid = sesID;
     let comment;
-    let commentbox;
     for (let l = 0; l < i; l++) {
         comment = "comment" + l;
-        commentbox = "commentbox"+l;
         if (l == boxnr) {
             document.getElementById(comment).removeAttribute("hidden");
-            document.getElementById(commentbox).removeAttribute("hidden");
         } else {
             let checkbox = "checkbox" + l;
             document.getElementById(checkbox).checked = false;
             document.getElementById(comment).setAttribute("hidden", "");
-            document.getElementById(commentbox).setAttribute("hidden","");
         }
     }
     ekgMeasFetch(sesID, klinid)
@@ -135,4 +131,17 @@ function updateEkgSession() {
 window.onload = function () {
     cprSearch()
     document.getElementById("cpr").value = sessionStorage.getItem("user");
+}
+
+function updateChart(range){
+    console.log(range.value);
+    let label = [0];
+
+    for (let i=1;i<range.value ;i++){
+        label.push(i)
+    }
+
+    console.log(label);
+    myChart.data.labels = label;
+    myChart.update();
 }
