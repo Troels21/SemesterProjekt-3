@@ -75,15 +75,27 @@ public class AftaleController {
     public AftaleListe getAllGroupsAftaleFromTo(String from, String to) throws SQLException {
         AftaleListe aftaleListe = AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to);
         /*
-        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler",("Bearer "+System.getenv("ApiKeyGrp1")));
+        JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp1"));
         for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
-            String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
-            if (placeholder.startsWith(from)) {
+            String dato = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            String[] placeholder1=dato.split(" ");
+            String[] placeholder=placeholder1[0].split("-");
+            int month = Integer.parseInt(placeholder[1]);
+            int day = Integer.parseInt(placeholder[2]);
+            if (month<10){
+                placeholder[1]=placeholder[1].substring(1);
+            }
+            if (day<10){
+                placeholder[2]=placeholder[2].substring(1);
+            }
+            dato = placeholder[0]+"-"+placeholder[1]+"-"+placeholder[2];
+
+            if (dato.startsWith(from)) {
                 aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
             }
-        }
+        }*/
 
-        /*
+
         JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp2"));
         for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
             String dato = grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
@@ -102,20 +114,44 @@ public class AftaleController {
             if (dato.startsWith(from)) {
                 aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
             }
-        }*/
+        }
         /*
-        JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler",("Bearer "+System.getenv("ApiKeyGrp4")));
-        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
-            String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
-            if (placeholder.startsWith(from)) {
-                aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
+        JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp4"));
+        for (int i = 0; i < grp4.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+            String dato = grp4.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            String[] placeholder1=dato.split(" ");
+            String[] placeholder=placeholder1[0].split("-");
+            int month = Integer.parseInt(placeholder[1]);
+            int day = Integer.parseInt(placeholder[2]);
+            if (month<10){
+                placeholder[1]=placeholder[1].substring(1);
+            }
+            if (day<10){
+                placeholder[2]=placeholder[2].substring(1);
+            }
+            dato = placeholder[0]+"-"+placeholder[1]+"-"+placeholder[2];
+
+            if (dato.startsWith(from)) {
+                aftaleListe.addAftaler(new Gson().fromJson(grp4.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
             }
         }
-        JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler",("Bearer "+System.getenv("ApiKeyGrp5")));
-        for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
-            String placeholder = grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
-            if (placeholder.startsWith(from)) {
-                aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
+        JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp5"));
+        for (int i = 0; i < grp5.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+            String dato = grp5.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+            String[] placeholder1=dato.split(" ");
+            String[] placeholder=placeholder1[0].split("-");
+            int month = Integer.parseInt(placeholder[1]);
+            int day = Integer.parseInt(placeholder[2]);
+            if (month<10){
+                placeholder[1]=placeholder[1].substring(1);
+            }
+            if (day<10){
+                placeholder[2]=placeholder[2].substring(1);
+            }
+            dato = placeholder[0]+"-"+placeholder[1]+"-"+placeholder[2];
+
+            if (dato.startsWith(from)) {
+                aftaleListe.addAftaler(new Gson().fromJson(grp5.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
             }
         }*/
 
@@ -130,7 +166,7 @@ public class AftaleController {
         for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
             System.out.println(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i));
             aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
-        }
+        }*/
 
 
 
