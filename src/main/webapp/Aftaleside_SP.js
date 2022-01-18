@@ -72,7 +72,7 @@ function deleteAftale() {
             headers: {
                 "Authorization": localStorage.getItem("token")
             }
-        }).then(resp => alert("OK")).then(refresh);
+        }).then(resp => alert("De valgte aftaler er hermed slettet fra systemet.")).then(refresh);
 }
 
 //Kalendar
@@ -183,11 +183,11 @@ function formfetch() {
         }
     }).then(async resp => {
         if (resp.status >= 200 && resp.status <= 299) {
-            alert("OK");
+            alert("Aftalen er hermed oprettet i systemet.");
         } else {
             throw Error(await resp.text());
         }
-    }).then(refresh).catch(Error => alert(Error));
+    }).then(refresh).catch(Error => alert("Aftalen kunne ikke oprettes i systemet."));
 
 
 }
@@ -261,14 +261,14 @@ function noWeekend() {
     timefree.value = (day.getHours() + ":" + day.getMinutes() + " til " + endDay.getHours() + ":" + endDay.getMinutes() + "    d." + day.getFullYear() + "-" + (day.getMonth() + 1) + "-" + day.getUTCDate())
 
     if (day.getDay() === 6 || day.getDay() === 0) {
-        alert('Weekends not allowed');
+        alert('Tider kan kun bestilles fra mandag til fredag.');
         datetime.value = "";
         start.value = "";
         end.value = "";
         timefree.value = "";
     }
     if (day.getHours() > 16 || day.getHours() < 8) {
-        alert('Between 8-16');
+        alert('Tider kan kun bestilles inden for 8-16.');
         datetime.value = "";
         start.value = "";
         end.value = "";
