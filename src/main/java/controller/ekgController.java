@@ -6,6 +6,7 @@ import dataAccesLayer.apiDAO;
 import model.ekgMeasurements;
 import model.ekgSession;
 import model.ekgSessionList;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
@@ -89,30 +90,41 @@ public class ekgController {
         }
     });
 
+    public static void main(String[] args) throws SQLException {
+        System.out.println(getAllSessions("1234567890").getEkgSessionList());
 
-    public ekgSessionList getAllSessions(String CPR) throws SQLException {
+    }
+
+    static public ekgSessionList getAllSessions(String CPR) throws SQLException {
         ekgSessionList ekgses = EkgSql.getEkgSql().getEkgSessions(CPR);
-
         /*
         JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=" + CPR,("Bearer "+System.getenv("ApiKeyGrp1")));
         for (int i = 0; i < grp1.getJSONObject("sessions").getJSONArray("ekgSession").length(); i++) {
             ekgSession ekgSession = new Gson().fromJson(grp1.getJSONObject("sessions").getJSONArray("ekgSession").get(i).toString(), ekgSession.class);
             ekgSession.setKlinikID(1);
             ekgses.addEkgSession(ekgSession);
+        }*/
+        try {
+            JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/ekgSessions?cpr=" + CPR, (System.getenv("ApiKeyGrp2")));
+            for (int i = 0; i < grp2.getJSONObject("sessions").getJSONArray("ekgSession").length(); i++) {
+                ekgSession ekgSession = new Gson().fromJson(grp2.getJSONObject("sessions").getJSONArray("ekgSession").get(i).toString(), ekgSession.class);
+                ekgSession.setKlinikID(2);
+                ekgses.addEkgSession(ekgSession);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
         }
-        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=?cpr=" + CPR,("Bearer "+System.getenv("ApiKeyGrp2")));
-        for (int i = 0; i < grp1.getJSONObject("sessions").getJSONArray("ekgSession").length(); i++) {
-            ekgSession ekgSession = new Gson().fromJson(grp1.getJSONObject("sessions").getJSONArray("ekgSession").get(i).toString(), ekgSession.class);
-            ekgSession.setKlinikID(2);
-            ekgses.addEkgSession(ekgSession);
-        }
-        JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=?cpr=" + CPR,("Bearer "+System.getenv("ApiKeyGrp4")));
+
+        /*
+        JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=?cpr=" + CPR,("+System.getenv("ApiKeyGrp4")));
         for (int i = 0; i < grp1.getJSONObject("sessions").getJSONArray("ekgSession").length(); i++) {
             ekgSession ekgSession = new Gson().fromJson(grp1.getJSONObject("sessions").getJSONArray("ekgSession").get(i).toString(), ekgSession.class);
             ekgSession.setKlinikID(4);
             ekgses.addEkgSession(ekgSession);
         }
-        JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=?cpr=" + CPR,("Bearer "+System.getenv("ApiKeyGrp5")));
+        JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=?cpr=" + CPR,(""+System.getenv("ApiKeyGrp5")));
         for (int i = 0; i < grp1.getJSONObject("sessions").getJSONArray("ekgSession").length(); i++) {
             ekgSession ekgSession = new Gson().fromJson(grp1.getJSONObject("sessions").getJSONArray("ekgSession").get(i).toString(), ekgSession.class);
             ekgSession.setKlinikID(5);
@@ -131,23 +143,26 @@ public class ekgController {
                 return ekgmeas1;
             }/*
             case 1: {
-                JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/measurements?sessionID=" + sessionID,("Bearer "+System.getenv("ApiKeyGrp1")));
+                JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/measurements?sessionID=" + sessionID,(""+System.getenv("ApiKeyGrp1")));
                 for (int i = 0; i < grp1.getJSONObject("measurements").getJSONArray("measurment").length(); i++) {
                     ekgmeas.addMeasurments(grp1.getJSONObject("measurements").getJSONArray("measurment").getDouble(i));
                 }
                 return ekgmeas;
-            }
+            }*/
             case 2: {
-                JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions/measurements?sessionID=" + sessionID,("Bearer "+System.getenv("ApiKeyGrp2")));
-                for (int i = 0; i < grp2.getJSONObject("measurements").getJSONArray("measurment").length(); i++) {
-                    ekgmeas.addMeasurments(grp2.getJSONObject("measurements").getJSONArray("measurment").getDouble(i));
+                try {
+                    JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/ekgSessions/measurements?sessionID=" + sessionID, ("" + System.getenv("ApiKeyGrp2")));
+                    for (int i = 0; i < grp2.getJSONObject("measurements").getJSONArray("measurment").length(); i++) {
+                        ekgmeas.addMeasurments(grp2.getJSONObject("measurements").getJSONArray("measurment").getDouble(i));
+                    }
+                    return ekgmeas;
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                return ekgmeas;
-
-            }
+            }/*
 
             case 4: {
-                JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions/measurements?sessionID=" + sessionID,("Bearer "+System.getenv("ApiKeyGrp4")));
+                JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions/measurements?sessionID=" + sessionID,(""+System.getenv("ApiKeyGrp4")));
                 for (int i = 0; i < grp4.getJSONObject("measurements").getJSONArray("measurment").length(); i++) {
                     ekgmeas.addMeasurments(grp4.getJSONObject("measurements").getJSONArray("measurment").getDouble(i));
                 }
@@ -155,7 +170,7 @@ public class ekgController {
 
             }
             case 5: {
-                JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions/measurements?sessionID=" + sessionID,("Bearer "+System.getenv("ApiKeyGrp5")));
+                JSONObject grp5 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions/measurements?sessionID=" + sessionID,(""+System.getenv("ApiKeyGrp5")));
                 for (int i = 0; i < grp5.getJSONObject("measurements").getJSONArray("measurment").length(); i++) {
                     ekgmeas.addMeasurments(grp5.getJSONObject("measurements").getJSONArray("measurment").getDouble(i));
                 }

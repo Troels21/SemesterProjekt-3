@@ -2,11 +2,13 @@ package controller;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import dataAccesLayer.AftaleSQL;
 import dataAccesLayer.apiDAO;
 import exceptions.OurException;
 import model.Aftale;
 import model.AftaleListe;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
@@ -95,25 +97,32 @@ public class AftaleController {
             }
         }*/
 
+        try {
+            JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler", System.getenv("ApiKeyGrp2"));
+            for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
+                String dato = grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
+                String[] placeholder1 = dato.split(" ");
+                String[] placeholder = placeholder1[0].split("-");
+                int month = Integer.parseInt(placeholder[1]);
+                int day = Integer.parseInt(placeholder[2]);
+                if (month < 10) {
+                    placeholder[1] = placeholder[1].substring(1);
+                }
+                if (day < 10) {
+                    placeholder[2] = placeholder[2].substring(1);
+                }
+                dato = placeholder[0] + "-" + placeholder[1] + "-" + placeholder[2];
 
-        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp2"));
-        for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
-            String dato = grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).get("timeStart").toString();
-            String[] placeholder1=dato.split(" ");
-            String[] placeholder=placeholder1[0].split("-");
-            int month = Integer.parseInt(placeholder[1]);
-            int day = Integer.parseInt(placeholder[2]);
-            if (month<10){
-                placeholder[1]=placeholder[1].substring(1);
+                if (dato.startsWith(from)) {
+                    aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
+                }
             }
-            if (day<10){
-                placeholder[2]=placeholder[2].substring(1);
-            }
-            dato = placeholder[0]+"-"+placeholder[1]+"-"+placeholder[2];
-
-            if (dato.startsWith(from)) {
-                aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(),Aftale.class));
-            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
         }
         /*
         JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler",System.getenv("ApiKeyGrp4"));
@@ -168,14 +177,19 @@ public class AftaleController {
             aftaleListe.addAftaler(new Gson().fromJson(grp1.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
         }*/
 
+        try {
+            JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler?cpr=" + CPR, System.getenv("ApiKeyGrp2"));
+            for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
 
-
-        JSONObject grp2 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://ekg2.diplomportal.dk:8080/data/aftaler?cpr=" + CPR,System.getenv("ApiKeyGrp2"));
-        for (int i = 0; i < grp2.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
-
-            aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
+                aftaleListe.addAftaler(new Gson().fromJson(grp2.getJSONObject("aftaleListe").getJSONArray("aftale").getJSONObject(i).toString(), Aftale.class));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
         }
         /*
+
         JSONObject grp4 = apiDAO.getApiDAOOBJ().getJsonOBJ("http://localhost:8080/SemesterProjekt_3_war/data/aftaler?cpr=" + CPR,("Bearer "+System.getenv("ApiKeyGrp4")));
         for (int i = 0; i < grp1.getJSONObject("aftaleListe").getJSONArray("aftale").length(); i++) {
 
