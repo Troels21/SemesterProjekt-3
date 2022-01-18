@@ -13,7 +13,7 @@ body {
 
 /* Centrer boksen, som den er i midten */
 .loginBoks {
-    height: 100vh;
+    height: 1000px;
     width: 100vw;
     display: flex;
     justify-content: center;

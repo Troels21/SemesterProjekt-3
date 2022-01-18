@@ -7,6 +7,7 @@ body {
     background-size: cover;
     font-family: "Georgia", serif;
     background-color: #90D7FF;
+    position: absolute;
 }
 
 
@@ -84,13 +85,13 @@ body {
     display: block;
     width: 30rem;
     height: 40rem;
-    right: 290px;
+    left: 760px;
     margin: 0;
     justify-content: center;
     align-items: center;
     background-color: ghostwhite;
     border-radius: 10px;
-    bottom: 20px;
+    top: 250px;
 }
 
 .autotiderbar {
@@ -131,7 +132,7 @@ body {
     align-items: center;
     background-color: ghostwhite;
     border-radius: 10px;
-    bottom: 20px;
+    top: 250px;
 
 }
 
@@ -257,7 +258,6 @@ body {
 /* Pop-up journal */
 .form-popup {
     display: none;
-    position: fixed;
     border: 1px solid black;
 }
 
@@ -278,15 +278,14 @@ body {
     border-radius: 5px;
     background-color: ghostwhite;
     border-color: white;
+    position: absolute;
 }
 
 #EKG{
-    position: absolute;
-    right: 15px;
+    left: 1235px;
 }
 #logud{
-    position: absolute;
-    right: -50px;
+    left: 1300px;
 }
 
 .button1:hover {
@@ -308,23 +307,24 @@ body {
     background-color: #EDEDED;
     border-color: #EDEDED;
     padding-bottom: 15px;
-    position: absolute;
 }
 
 #reset{
+    left: 970px;
+    bottom: -80px;
     position: absolute;
-    left: 210px;
-    bottom: 100px;
 }
 #tilfoej{
+    left: 1020px;
+    bottom: -80px;
     position: absolute;
-    left: 160px;
-    bottom: 100px;
 }
 
 #Trash{
-    left: 260px;
-    bottom: 100px;
+    left: 1070px;
+    bottom: -80px;
+    position: absolute;
+
 }
 
 .button2:hover {
@@ -405,13 +405,13 @@ textarea {
 /* The popup form - hidden by default */
 .form-popup {
     display: none;
-    position: absolute;
-    bottom: 179px;
-    right: 15px;
+    left: 1550px;
     z-index: 9;
     background-color: ghostwhite;
     border: 1px solid lightgray;
     border-radius: 15px;
+    position: absolute;
+    top: 782px;
 }
 
 /* Add styles to the form container */
@@ -420,6 +420,7 @@ textarea {
     padding: 10px;
     background-color: ghostwhite;
     border-radius: 15px;
+    height: 530px;
 
 }
 
@@ -469,6 +470,10 @@ textarea {
 .R_Button{
     position: absolute;
     right: -50px;
+}
+
+#Annuller{
+    left: 80px;
 }
 
 

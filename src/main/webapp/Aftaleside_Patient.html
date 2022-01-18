@@ -18,8 +18,8 @@
 <!--DETTE ER FOR HOTBAR-->
 
 <div class="hotbar">
-  <button class="button1" onclick="window.location.replace('EKGside_Patient.html')">EKG</button>
-  <button class="button1" onclick="logud()">Log ud</button>
+  <button class="button1" onclick="window.location.replace('EKGside_Patient.html')" id="EKG">EKG</button>
+  <button class="button1" onclick="logud()" id="logud">Logud</button>
 </div>
 
 <!--DETTE ER FOR BRUGERNAVN-->
@@ -29,11 +29,11 @@
 <!--DETTE ER FOR MELLEMSTED-->
 
 <div class="mellemsted">
-  <button onclick="refresh()" class="button1"> <span class="material-icons-outlined">
+  <button onclick="refresh()" class="button1" id="reset"> <span class="material-icons-outlined">
 refresh
 </span></button>
   <!--Pop-up journal-->
-  <button onclick="openForm()" class="button1">Tilføj ny aftale</button>
+  <button onclick="openForm()" class="button1" id="tilfoej">Tilføj ny aftale</button>
 </div>
 
 
@@ -68,8 +68,8 @@ refresh
             <label for="textarea">Notat </label></span>
     <textarea id="textarea" name="note" rows="4" cols="50"></textarea><br>
 
-    <input type="button" value="Annuller" class="button" onclick="closeForm()">
-    <input type="button" value="Indsend" class="button" onclick="submitForm()">
+    <input type="button" value="Annuller" id="Annuller" class="button" onclick="closeForm()">
+    <input type="button" value="Indsend" id="Indsend" class="button" onclick="submitForm()">
   </div>
 </div>
 
