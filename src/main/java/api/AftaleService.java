@@ -32,9 +32,9 @@ public class AftaleService {
     public String makepatientSQL(@QueryParam("cpr") String cpr, @QueryParam("timestart")
             String timestart, @QueryParam("timeend") String timeend, @QueryParam("note") String notat) throws SQLException, OurException {
         User user = (User) context.getProperty("user");
-        if (user.isDoctor()) {
+        if (user.isDoctor()) {//Check for user access
             return AftaleController.getAftaleControllerOBJ().createAftale(cpr, timestart, timeend, notat);
-        } else if (!user.isDoctor()) {
+        } else if (!user.isDoctor()) {//Check for user access
             return AftaleController.getAftaleControllerOBJ().createAftale(user.getUsername(), timestart, timeend, notat);
         }
         throw new WebApplicationException("You dont have rights", 401);
@@ -44,9 +44,9 @@ public class AftaleService {
     @GET
     public String selectFromTime(@QueryParam("from") String from, @QueryParam("to") String to) throws SQLException, OurException {
         User user = (User) context.getProperty("user");
-        if (user.isDoctor()) {
+        if (user.isDoctor()) {//Check for user access
             return new Gson().toJson(AftaleController.getAftaleControllerOBJ().getAllGroupsAftaleFromTo(from,to));
-        } else if (!user.isDoctor()) {
+        } else if (!user.isDoctor()) {//Check for user access
             return new Gson().toJson(AftaleController.getAftaleControllerOBJ().getALLGroupsAftaleCPR(user.getUsername()));
         }
         throw new WebApplicationException("You dont have rights", 401);
@@ -56,7 +56,7 @@ public class AftaleService {
     @DELETE
     public String updateEkgSession(@QueryParam("numberToDelete") String data) throws SQLException {
         User user = (User) context.getProperty("user");
-        if (user.isDoctor()) {
+        if (user.isDoctor()) {//Check for user access
             AftaleSQL.getAftaleSQLObj().deleteAftaleIn(data);
             return "I got:" + data;
         }

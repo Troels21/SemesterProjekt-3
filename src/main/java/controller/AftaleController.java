@@ -12,11 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AftaleController {
+    //Commented out code is for implementation of other groups
 
     private AftaleController() {
     }
@@ -72,7 +70,6 @@ public class AftaleController {
             throw ex;
         }
     }
-
 
     public AftaleListe getAllGroupsAftaleFromTo(String from, String to) throws SQLException {
         AftaleListe aftaleListe = AftaleSQL.getAftaleSQLObj().getAftaleListeDateTime(from, to);

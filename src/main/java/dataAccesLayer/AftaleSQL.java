@@ -19,7 +19,7 @@ public class AftaleSQL {
         return aftaleSQL_OBJ;
     }
 
-
+    //gets sqldata, makes Aftale, adds to aftaleListe
     public AftaleListe getAftaleListeDateTime(String fra, String til) throws SQLException {
         SQL.getSqlOBJ().makeConnectionSQL();
         AftaleListe aftaleListe = new AftaleListe();
@@ -76,7 +76,7 @@ public class AftaleSQL {
             throw ex;
         }
     }
-
+    //gets sqldata, makes Aftale, adds to aftaleListe
     public AftaleListe getAftalerListe() throws SQLException {
         SQL.getSqlOBJ().makeConnectionSQL();
         AftaleListe aftaleListe = new AftaleListe();
@@ -106,9 +106,8 @@ public class AftaleSQL {
         return aftaleListe;
     }
 
-
+    //Finds aftale SQL data from cpr
     public AftaleListe cprSearch(String cpr) throws SQLException {
-
         SQL.getSqlOBJ().makeConnectionSQL();
         PreparedStatement pp = SQL.getSqlOBJ().myConn.prepareStatement("SELECT * FROM aftaler\n" +
                 "INNER JOIN patient\n" +

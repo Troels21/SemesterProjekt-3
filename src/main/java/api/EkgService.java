@@ -49,7 +49,7 @@ public class EkgService {
     @GET
     public String getSessionJson(@QueryParam("cpr") String cpr) throws SQLException {
         User user = (User) context.getProperty("user");
-        if (user.isDoctor()) {
+        if (user.isDoctor()) { //Check for user access
             if (cpr != null) {
                 try {
                     return new Gson().toJson(ekgController.getEkgController().getAllSessions(cpr));
@@ -58,7 +58,7 @@ public class EkgService {
                 }
             }
             return null;
-        }else if (!user.isDoctor()) {
+        }else if (!user.isDoctor()) { //Check for user access
             return new Gson().toJson(ekgController.getEkgController().getAllSessions(user.getUsername()));
         }
         throw new WebApplicationException("You dont have rights", 401);
@@ -68,7 +68,7 @@ public class EkgService {
     @PUT
     public String updateEkgSession(@PathParam("sessionID") String sessionID, String comment) {
         User user = (User) context.getProperty("user");
-        if (user.isDoctor()) {
+        if (user.isDoctor()) { //Check for user access
             try {
                 EkgSql.getEkgSql().updateEkgSession(sessionID, comment);
             } catch (SQLException e) {
@@ -83,7 +83,7 @@ public class EkgService {
     @GET
     public String getMeasurementJson(@QueryParam("sessionID") Integer sessionID, @QueryParam("klinikID") Integer klinikID) throws SQLException {
         User user = (User) context.getProperty("user");
-        if (user.isDoctor()) {
+        if (user.isDoctor()) { //Check for user access
         if (sessionID != null) {
             try {
                 return new Gson().toJson(ekgController.getEkgController().getAllEKGMeasurements(sessionID,klinikID));
@@ -92,7 +92,7 @@ public class EkgService {
             }
         }
         return null;
-    }else if (!user.isDoctor()) {
+    }else if (!user.isDoctor()) { //Check for user access
             return new Gson().toJson(EkgSql.getEkgSql().getMeasurements(sessionID));
         }
         throw new WebApplicationException("You dont have rights", 401);

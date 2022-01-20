@@ -16,6 +16,7 @@ import java.util.List;
 
 
 public class ekgController {
+    //Commented out code is for implementation of other groups
 
     private double[] measurements;
     private String cpr;
@@ -35,6 +36,7 @@ public class ekgController {
         return EKG_CONTROLLER;
     }
 
+    //Tjek if payload= JsonArray and numbers
     public void validate(String data, String cprString) {
         try {
             JsonElement json = new JsonParser().parse(data);
@@ -45,7 +47,7 @@ public class ekgController {
             measurements = new Gson().fromJson(jsonArray, double[].class);
             cpr = cprString;
 
-            Thread thread = new Thread(findSick);
+            Thread thread = new Thread(findSick); //make findSickThread
             thread.start();
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
@@ -53,13 +55,13 @@ public class ekgController {
     }
 
     private final Thread findSick = new Thread(() -> {
-        int lastCounter = -101;
+        int lastCounter = -101; //Makes first datapoint a possible peak
         List<Integer> distance = new ArrayList<>();
         List<Integer> markerToDistance = new ArrayList<>();
         double thisPersonAverageDistance = 0;
-        int normalPersonAverageDistance = 500;
+        int normalPersonAverageDistance = 500; //30.000/60bpm
         String markers = "";
-
+        //find peaks, and mark distance
         for (int i = 0; i < measurements.length; i++) {
             if (measurements[i] >= (Arrays.stream(measurements).max().getAsDouble() * 0.55) & (lastCounter - i < -100)) {
                 distance.add((i - lastCounter));
@@ -67,20 +69,20 @@ public class ekgController {
                 lastCounter = i;
             }
         }
-
+        //Finde average distance
         for (int i = 0; i < distance.size(); i++) {
             thisPersonAverageDistance += distance.get(i);
         }
 
         thisPersonAverageDistance = (thisPersonAverageDistance / distance.size());
         double bpm = (30000 / thisPersonAverageDistance);
-
+        //Mark markers
         for (int i = 0; i < distance.size(); i++) {
             if ((normalPersonAverageDistance - distance.get(i)) < -500 || (normalPersonAverageDistance - distance.get(i)) >= 350) {
                 markers = (markers + markerToDistance.get(i) + ",");
             }
         }
-
+        //Push markers and data
         try {
             EkgSql.getEkgSql().sqlInsertEkgSession(markers, "BPM: " + bpm + "", cpr);
 
@@ -90,12 +92,11 @@ public class ekgController {
         }
     });
 
-    public static void main(String[] args) throws SQLException {
-        System.out.println(getAllSessions("1234567890").getEkgSessionList());
+    //public static void main(String[] args) throws SQLException {
+      //  System.out.println(getAllSessions("1234567890").getEkgSessionList());
+    //}
 
-    }
-
-    static public ekgSessionList getAllSessions(String CPR) throws SQLException {
+    public ekgSessionList getAllSessions(String CPR) throws SQLException {
         ekgSessionList ekgses = EkgSql.getEkgSql().getEkgSessions(CPR);
         /*
         JSONObject grp1 = apiDAO.getApiDAOOBJ().getJsonOBJ("endpoint/ekgSessions?cpr=" + CPR,("Bearer "+System.getenv("ApiKeyGrp1")));

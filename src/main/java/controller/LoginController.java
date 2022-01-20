@@ -21,10 +21,10 @@ public class LoginController {
 
     public String doLogin(LoginData loginData) {
         try {
-            // sql kald der kontrollere om brugeren eksitere
+            // SQL does user exist
             String brugerListe = LoginSQL.getLoginSqlObj().returnLoginUserDB(loginData.getUsername());
             String[] opdelt = brugerListe.split("\\|");
-            // kontrol af login og generer token
+            // Control password
             if (hashControl(loginData.getPassword(), opdelt[1])) {
                 User user = new User(loginData);
                 if (opdelt[3].equals("1")) {
@@ -32,6 +32,7 @@ public class LoginController {
                 } else {
                     user.setDoctor(false);
                 }
+                //Give JavaWebToken
                 return JWTHandler.generateJwtToken(user);
             }
         } catch (SQLException e) {
@@ -40,9 +41,9 @@ public class LoginController {
         throw new WebApplicationException("fejl", 401);
     }
 
-    /*public static void main(String[] args) {
-        System.out.println(generateHash("4321"));
-    }*/
+    //public static void main(String[] args) {
+      //  System.out.println(generateHash("password"));
+    //}
 
     public static String generateHash(String pass) {
         String salt = (BCrypt.gensalt(10));
