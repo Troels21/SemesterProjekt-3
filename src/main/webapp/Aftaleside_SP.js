@@ -58,6 +58,8 @@ function deleteAftale() {
     let numberToDelete = "(0"
     for (let l = 0; l < counter; l++) {
         let box = "checkbox" + l;
+        console.log(box);
+        console.log()
 
         if (document.getElementById(box).checked) {
             numberToDelete += "," + document.getElementById(box).getAttribute("name");
